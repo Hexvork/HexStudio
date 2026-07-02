@@ -412,6 +412,17 @@ jobs:
             ${{ steps.cache-deps.outputs.cache-hit == 'true' && 'NO' || 'YES' }}
       - name: Build
         run: cmake --build build
+      - name: Verify translations generated
+        run: |
+          Write-Host "=== Checking for .qm files ==="
+          Get-ChildItem -Path build/data/locale -Filter *.qm -ErrorAction SilentlyContinue | Format-Table Name, Length
+          if (-not (Test-Path build/data/locale/zh_CN.qm)) {
+            Write-Host "zh_CN.qm MISSING - running lrelease explicitly"
+            & "$env:IQTA_TOOLS_PATH\..\..\bin\lrelease.exe" data/locale/zh_CN.ts -qm build/data/locale/zh_CN.qm
+          }
+          Write-Host "=== zh_CN.qm size ==="
+          (Get-Item build/data/locale/zh_CN.qm).Length
+        shell: pwsh
       - name: Run tests
         run: |
           cd build/tests
@@ -423,6 +434,11 @@ jobs:
         with:
           name: msvc-x64
           path: build\lmms-*.exe
+      - name: Upload translation files (debug)
+        uses: actions/upload-artifact@v4
+        with:
+          name: msvc-x64-translations
+          path: build\data\locale\*.qm
       - name: Trim ccache and print statistics
         run: |
           ccache --cleanup
