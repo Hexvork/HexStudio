@@ -93,7 +93,7 @@ EffectSelectDialog::EffectSelectDialog(QWidget* parent) :
 		else
 		{
 			name = it->desc->displayName;
-			type = "HexImg";
+			type = "HexStudio";
 		}
 		m_sourceModel.setItem(row, 0, new QStandardItem(name));
 		m_sourceModel.setItem(row, 1, new QStandardItem(type));
@@ -108,8 +108,8 @@ EffectSelectDialog::EffectSelectDialog(QWidget* parent) :
 
 	QVBoxLayout* leftSectionLayout = new QVBoxLayout();
 
-	QStringList buttonLabels = { tr("All"), "HexImg", "LADSPA", "LV2", "VST" };
-	QStringList buttonSearchString = { "", "HexImg", "LADSPA", "LV2", "VST" };
+	QStringList buttonLabels = { tr("All"), "HexStudio", "LADSPA", "LV2", "VST" };
+	QStringList buttonSearchString = { "", "HexStudio", "LADSPA", "LV2", "VST" };
 
 	for (int i = 0; i < buttonLabels.size(); ++i)
 	{

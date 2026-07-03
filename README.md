@@ -1,6 +1,6 @@
 <div align="center">
 	<h1>
-	<img src="https://raw.githubusercontent.com/Hexvork/artwork/master/Icon%20%26%20Mimetypes/lmms-64x64.svg" alt="HexImg Logo"><br>HexImg
+	<img src="https://raw.githubusercontent.com/Hexvork/artwork/master/Icon%20%26%20Mimetypes/lmms-64x64.svg" alt="HexStudio Logo"><br>HexStudio
 	</h1>
 	<p>Cross-platform music production software</p>
 	<p>
@@ -25,10 +25,10 @@
 	</p>
 </div>
 
-What is HexImg?
+What is HexStudio?
 --------------
 
-HexImg is an open-source cross-platform digital audio workstation designed for music production. It includes an advanced Piano Roll, Beat Sequencer, Song Editor, and Mixer for composing, arranging, and mixing music. It comes with 15+ synthesizer plugins by default, along with VST2 and SoundFont2 support.
+HexStudio is an open-source cross-platform digital audio workstation designed for music production. It includes an advanced Piano Roll, Beat Sequencer, Song Editor, and Mixer for composing, arranging, and mixing music. It comes with 15+ synthesizer plugins by default, along with VST2 and SoundFont2 support.
 
 Features
 ---------
@@ -45,12 +45,12 @@ Features
 Building
 ---------
 
-See [Compiling HexImg](https://github.com/Hexvork/lmms/wiki/Compiling)
+See [Compiling HexStudio](https://github.com/Hexvork/lmms/wiki/Compiling)
 
-Join HexImg development
+Join HexStudio development
 ----------------------
 
-If you are interested in HexImg, its programming, artwork, testing, writing demo songs, (and improving this README...) or something like that, you're welcome to participate in the development of HexImg!
+If you are interested in HexStudio, its programming, artwork, testing, writing demo songs, (and improving this README...) or something like that, you're welcome to participate in the development of HexStudio!
 
 Information about what you can do and how can be found in the [wiki](https://github.com/Hexvork/lmms/wiki).
 

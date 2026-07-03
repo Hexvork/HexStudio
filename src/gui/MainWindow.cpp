@@ -481,7 +481,7 @@ void MainWindow::finalize()
 		ConfigManager::inst()->value( "audioengine", "audiodev" ) ) )
 	{
 		QMessageBox::critical(nullptr, "Audio device setup failed",
-			tr("Failed to setup audio device for playback. Try adjusting your audio device settings (e.g. the sample rate), then restart HexImg."));
+			tr("Failed to setup audio device for playback. Try adjusting your audio device settings (e.g. the sample rate), then restart HexStudio."));
 
 		// if so, offer the audio settings section of the setup dialog
 		SetupDialog sd( SetupDialog::ConfigTab::AudioSettings );
@@ -589,7 +589,7 @@ void MainWindow::resetWindowTitle()
 		title += " - " + tr( "Recover session. Please save your work!" );
 	}
 
-	setWindowTitle( title + " - " + tr( "HexImg %1" ).arg( LMMS_VERSION ) );
+	setWindowTitle( title + " - " + tr( "HexStudio %1" ).arg( LMMS_VERSION ) );
 }
 
 
@@ -746,7 +746,7 @@ void MainWindow::openProject()
 {
 	if( mayChangeProject(false) )
 	{
-		FileDialog ofd( this, tr( "Open Project" ), "", tr( "HexImg (*.mmp *.mmpz)" ) );
+		FileDialog ofd( this, tr( "Open Project" ), "", tr( "HexStudio (*.mmp *.mmpz)" ) );
 
 		ofd.setDirectory( ConfigManager::inst()->userProjectsDir() );
 		ofd.setFileMode( FileDialog::ExistingFiles );
@@ -790,8 +790,8 @@ bool MainWindow::saveProjectAs()
 {
 	auto optionsWidget = new SaveOptionsWidget(Engine::getSong()->getSaveOptions());
 	VersionedSaveDialog sfd( this, optionsWidget, tr( "Save Project" ), "",
-			tr( "HexImg Project" ) + " (*.mmpz *.mmp);;" +
-				tr( "HexImg Project Template" ) + " (*.mpt)" );
+			tr( "HexStudio Project" ) + " (*.mmpz *.mmp);;" +
+				tr( "HexStudio Project Template" ) + " (*.mpt)" );
 	QString f = Engine::getSong()->projectFileName();
 	if( f != "" )
 	{
@@ -905,10 +905,10 @@ void MainWindow::help()
 {
 	QMessageBox::information( this, tr( "Help not available" ),
 				  tr( "Currently there's no help "
-						  "available in HexImg.\n"
+						  "available in HexStudio.\n"
 						  "Please visit "
 						  "https://github.com/Hexvork/lmms "
-						  "for documentation on HexImg." ),
+						  "for documentation on HexStudio." ),
 				  QMessageBox::Ok );
 }
 

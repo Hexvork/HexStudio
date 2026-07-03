@@ -35,6 +35,7 @@
 #include <QStyleOption>
 
 #include "embed.h"
+#include "ConfigManager.h"
 #include "LmmsStyle.h"
 #include "TextFloat.h"
 
@@ -44,6 +45,13 @@ namespace lmms::gui
 
 
 QPalette * LmmsStyle::s_palette = nullptr;
+
+
+bool isFluentTheme()
+{
+	return ConfigManager::inst()->themeDir().contains("fluent-", Qt::CaseInsensitive);
+}
+
 
 QLinearGradient getGradient( const QColor & _col, const QRectF & _rect )
 {
@@ -156,7 +164,7 @@ LmmsStyle::LmmsStyle() :
 				qApp->setStyleSheet(file.readAll());
 				TextFloat::displayMessage(
 					tr("Theme updated"),
-					tr("HexImg theme file %1 has been reloaded.").arg(file.fileName()),
+					tr("HexStudio theme file %1 has been reloaded.").arg(file.fileName()),
 					embed::getIconPixmap("colorize"),
 					3000
 				);
@@ -242,6 +250,12 @@ void LmmsStyle::drawPrimitive( PrimitiveElement element,
 			element == QStyle::PE_FrameLineEdit ||
 			element == QStyle::PE_PanelLineEdit )
 	{
+		if (isFluentTheme())
+		{
+			QProxyStyle::drawPrimitive(element, option, painter, widget);
+			return;
+		}
+
 		const QRect rect = option->rect;
 
 		QColor black = QColor( 0, 0, 0 );

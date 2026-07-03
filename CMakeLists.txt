@@ -20,7 +20,7 @@ enable_policy_if_exists(CMP0092) # MSVC warning flags are not in CMAKE_<LANG>_FL
 # Needed for ccache support with MSVC
 enable_policy_if_exists(CMP0141) # MSVC debug information format flags are selected by an abstraction.
 
-PROJECT(HexImg)
+PROJECT(HexStudio)
 
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules" ${CMAKE_MODULE_PATH})
 SET(LMMS_BINARY_DIR ${CMAKE_BINARY_DIR} CACHE INTERNAL "LMMS binary directory")
@@ -49,7 +49,7 @@ STRING(TOUPPER          "${CMAKE_PROJECT_NAME}" PROJECT_NAME_UCASE)
 
 SET(PROJECT_YEAR 2026)
 
-SET(PROJECT_AUTHOR      "HexImg Developers")
+SET(PROJECT_AUTHOR      "HexStudio Developers")
 SET(PROJECT_URL         "https://github.com/Hexvork/lmms")
 SET(PROJECT_EMAIL       "i@hexvork.com")
 SET(PROJECT_DESCRIPTION "${PROJECT_NAME_UCASE} - Free music production software")

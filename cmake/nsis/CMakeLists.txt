@@ -24,8 +24,8 @@ SET(CPACK_NSIS_DEFINES                  "
   !define MUI_LANGDLL_REGISTRY_ROOT \\\"HKCU\\\"
   !define MUI_LANGDLL_REGISTRY_KEY \\\"Software\\\\${PROJECT_NAME_UCASE}\\\"
   !define MUI_LANGDLL_REGISTRY_VALUENAME \\\"Installer Language\\\"
-  !define MUI_CUSTOMFUNCTION_GUIINIT HexImgSelectInstallerLanguage
-  Function HexImgSelectInstallerLanguage
+  !define MUI_CUSTOMFUNCTION_GUIINIT HexStudioSelectInstallerLanguage
+  Function HexStudioSelectInstallerLanguage
     !insertmacro MUI_LANGDLL_DISPLAY
   FunctionEnd")
 SET(CPACK_PACKAGE_FILE_NAME             "${CMAKE_PROJECT_NAME}-${VERSION}-${WIN_PLATFORM}-win32")

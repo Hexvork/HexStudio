@@ -2214,7 +2214,7 @@ void DataFile::loadData( const QByteArray & _data, const QString & _sourceFile )
 
 			gui::TextFloat::displayMessage(
 				SongEditor::tr("Version difference"),
-				SongEditor::tr("This %1 was created with HexImg %2")
+				SongEditor::tr("This %1 was created with HexStudio %2")
 				.arg(projectType).arg(createdWith.getVersion()),
 				embed::getIconPixmap("whatsthis", 24, 24),
 				2500

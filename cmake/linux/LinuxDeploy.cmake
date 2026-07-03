@@ -9,8 +9,24 @@
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
 # Variables must be prefixed with "CPACK_" to be visible here
-set(lmms "${CPACK_PROJECT_NAME}")
+set(project_name "${CPACK_PROJECT_NAME}")
 set(LMMS "${CPACK_PROJECT_NAME_UCASE}")
+set(app_executable "${CPACK_APP_EXECUTABLE_NAME}")
+if(NOT app_executable)
+	set(app_executable "${project_name}")
+endif()
+set(desktop_file_name "${CPACK_DESKTOP_FILE_NAME}")
+if(NOT desktop_file_name)
+	set(desktop_file_name "${project_name}")
+endif()
+set(icon_name "${CPACK_ICON_NAME}")
+if(NOT icon_name)
+	set(icon_name "${project_name}")
+endif()
+set(plugin_dir "${CPACK_PLUGIN_DIR}")
+if(NOT plugin_dir)
+	set(plugin_dir "lib/${project_name}")
+endif()
 set(ARCH "${CPACK_TARGET_ARCH}")
 set(APP "${CPACK_TEMPORARY_INSTALL_DIRECTORY}/${LMMS}.AppDir")
 
@@ -18,7 +34,7 @@ set(APP "${CPACK_TEMPORARY_INSTALL_DIRECTORY}/${LMMS}.AppDir")
 set(APPIMAGE_FILE "${CPACK_BINARY_DIR}/${CPACK_PACKAGE_FILE_NAME}.AppImage")
 set(APPIMAGE_BEFORE_RENAME "${CPACK_BINARY_DIR}/${LMMS}-${ARCH}.AppImage")
 
-set(DESKTOP_FILE "${APP}/usr/share/applications/${lmms}.desktop")
+set(DESKTOP_FILE "${APP}/usr/share/applications/${desktop_file_name}.desktop")
 
 # Determine which packaging tool to use
 if(NOT CPACK_TOOL)
@@ -52,8 +68,8 @@ include(CreateSymlink)
 include(CopyDependency)
 
 # Cleanup CPack "External" json, txt files, old AppImage files
-file(GLOB cleanup "${CPACK_BINARY_DIR}/${lmms}-*.json"
-	"${CPACK_BINARY_DIR}/${lmms}-*.AppImage"
+file(GLOB cleanup "${CPACK_BINARY_DIR}/${project_name}-*.json"
+	"${CPACK_BINARY_DIR}/${project_name}-*.AppImage"
 	"${CPACK_BINARY_DIR}/install_manifest.txt")
 list(SORT cleanup)
 file(REMOVE ${cleanup})
@@ -90,19 +106,19 @@ endforeach()
 
 # Gather deps
 list(APPEND DEPLOY_DEPS
-	--deploy-deps-only "${APP}/usr/lib/${lmms}/"
-	--deploy-deps-only "${APP}/usr/lib/${lmms}/ladspa/"
+	--deploy-deps-only "${APP}/usr/${plugin_dir}/"
+	--deploy-deps-only "${APP}/usr/${plugin_dir}/ladspa/"
 )
 
 # If usr/bin/lmms is hard-linked to libjack, copy it to a new location
 # See https://github.com/LMMS/lmms/issues/7689
-copy_dependency("${APP}/usr/bin/lmms" "libjack.so" "${APP}/usr/lib/jack" JACK_LIB_RELOC)
+copy_dependency("${APP}/usr/bin/${app_executable}" "libjack.so" "${APP}/usr/lib/jack" JACK_LIB_RELOC)
 if(JACK_LIB_RELOC)
 	list(APPEND DEPLOY_DEPS --deploy-deps-only "${JACK_LIB_RELOC}")
 endif()
 
 if(CPACK_HAVE_VST_32)
-	list(APPEND DEPLOY_DEPS --deploy-deps-only "${APP}/usr/lib/${lmms}/32/")
+	list(APPEND DEPLOY_DEPS --deploy-deps-only "${APP}/usr/${plugin_dir}/32/")
 endif()
 
 # Copy Suil modules
@@ -126,7 +142,7 @@ get_filename_component(QTBIN "${CPACK_QMAKE_EXECUTABLE}" DIRECTORY)
 set(ENV{PATH} "${QTBIN}:$ENV{PATH}")
 
 # Promote finding our own libraries first
-set(ENV{LD_LIBRARY_PATH} "${APP}/usr/lib/${lmms}/:${APP}/usr/lib/${lmms}/optional:$ENV{LD_LIBRARY_PATH}")
+set(ENV{LD_LIBRARY_PATH} "${APP}/usr/${plugin_dir}/:${APP}/usr/${plugin_dir}/optional:$ENV{LD_LIBRARY_PATH}")
 
 # Workaround for finding libs from online installer
 # https://github.com/linuxdeploy/linuxdeploy-plugin-qt/issues/193
@@ -144,9 +160,9 @@ file(REMOVE "${APP}/apprun-hooks/README.md")
 
 # Prefer a hard-copy of .DirIcon over appimagetool's symlinking
 # 256x256 default for Cinnamon Desktop https://forums.linuxmint.com/viewtopic.php?p=2585952
-file(COPY "${APP}/usr/share/icons/hicolor/256x256/apps/${lmms}.png" DESTINATION "${APP}")
-file(RENAME "${APP}/${lmms}.png" "${APP}/.DirIcon")
-file(COPY "${APP}/usr/share/icons/hicolor/256x256/apps/${lmms}.png" DESTINATION "${APP}")
+file(COPY "${APP}/usr/share/icons/hicolor/256x256/apps/${icon_name}.png" DESTINATION "${APP}")
+file(RENAME "${APP}/${icon_name}.png" "${APP}/.DirIcon")
+file(COPY "${APP}/usr/share/icons/hicolor/256x256/apps/${icon_name}.png" DESTINATION "${APP}")
 
 # Inform linuxdeploy-plugin-qt about wayland plugin
 set(ENV{EXTRA_PLATFORM_PLUGINS} "libqwayland-generic.so")
@@ -167,13 +183,13 @@ execute_process(COMMAND "${LINUXDEPLOY_BIN}"
 	COMMAND_ERROR_IS_FATAL ANY)
 
 # Remove svg ambitiously placed by linuxdeploy
-file(REMOVE "${APP}/${lmms}.svg")
+file(REMOVE "${APP}/${icon_name}.svg")
 
 # Remove libraries that are normally system-provided
 file(GLOB EXCLUDE_LIBS
 	"${APP}/usr/lib/libwine*"
 	"${APP}/usr/lib/libcarla_native*"
-	"${APP}/usr/lib/${lmms}/optional/libcarla*"
+	"${APP}/usr/${plugin_dir}/optional/libcarla*"
 	"${APP}/usr/lib/libjack*")
 
 list(SORT EXCLUDE_LIBS)
@@ -184,7 +200,7 @@ foreach(_lib IN LISTS EXCLUDE_LIBS)
 endforeach()
 
 # cleanup empty directories
-file(REMOVE_RECURSE "${APP}/usr/lib/${lmms}/optional/")
+file(REMOVE_RECURSE "${APP}/usr/${plugin_dir}/optional/")
 
 if(CPACK_TOOL STREQUAL "appimagetool")
 	# Create ".AppImage" file using appimagetool (default)

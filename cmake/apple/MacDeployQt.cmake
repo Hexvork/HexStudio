@@ -6,7 +6,15 @@
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
 # Variables must be prefixed with "CPACK_" to be visible here
-set(lmms "${CPACK_PROJECT_NAME}")
+set(project_name "${CPACK_PROJECT_NAME}")
+set(app_executable "${CPACK_APP_EXECUTABLE_NAME}")
+if(NOT app_executable)
+	set(app_executable "${project_name}")
+endif()
+set(plugin_dir "${CPACK_PLUGIN_DIR}")
+if(NOT plugin_dir)
+	set(plugin_dir "lib/${project_name}")
+endif()
 set(APP "${CPACK_TEMPORARY_INSTALL_DIRECTORY}/${CPACK_PROJECT_NAME_UCASE}.app")
 
 # Toggle command echoing & verbosity
@@ -34,8 +42,8 @@ if(NOT CPACK_STRIP_FILES_ORIG)
 endif()
 
 # Cleanup CPack "External" json, txt files, old DMG files
-file(GLOB cleanup "${CPACK_BINARY_DIR}/${lmms}-*.json"
-	"${CPACK_BINARY_DIR}/${lmms}-*.dmg"
+file(GLOB cleanup "${CPACK_BINARY_DIR}/${project_name}-*.json"
+	"${CPACK_BINARY_DIR}/${project_name}-*.dmg"
 	"${CPACK_BINARY_DIR}/install_manifest.txt")
 list(SORT cleanup)
 file(REMOVE ${cleanup})
@@ -51,8 +59,13 @@ file(RENAME "${CPACK_TEMPORARY_INSTALL_DIRECTORY}/share" "${APP}/Contents/share"
 file(RENAME "${CPACK_TEMPORARY_INSTALL_DIRECTORY}/bin" "${APP}/Contents/bin")
 
 # Move binaries into Contents/MacOS
-file(RENAME "${APP}/Contents/bin/${lmms}" "${APP}/Contents/MacOS/${lmms}")
-file(RENAME "${APP}/Contents/lib/${lmms}/RemoteZynAddSubFx" "${APP}/Contents/MacOS/RemoteZynAddSubFx")
+if(NOT EXISTS "${APP}/Contents/bin/${app_executable}")
+	file(GLOB_RECURSE staged_files RELATIVE "${CPACK_TEMPORARY_INSTALL_DIRECTORY}" "${CPACK_TEMPORARY_INSTALL_DIRECTORY}/*")
+	list(SORT staged_files)
+	message(FATAL_ERROR "Could not find app executable ${APP}/Contents/bin/${app_executable}. Staged files: ${staged_files}")
+endif()
+file(RENAME "${APP}/Contents/bin/${app_executable}" "${APP}/Contents/MacOS/${project_name}")
+file(RENAME "${APP}/Contents/${plugin_dir}/RemoteZynAddSubFx" "${APP}/Contents/MacOS/RemoteZynAddSubFx")
 file(REMOVE_RECURSE "${APP}/Contents/bin")
 file(REMOVE_RECURSE "${APP}/Contents/share/man1")
 file(REMOVE_RECURSE "${APP}/Contents/include")
@@ -68,7 +81,7 @@ list(JOIN mime_parts "." MACOS_MIMETYPE_ID)
 configure_file("${CPACK_CURRENT_SOURCE_DIR}/lmms.plist.in" "${APP}/Contents/Info.plist" @ONLY)
 file(COPY "${CPACK_CURRENT_SOURCE_DIR}/project.icns" DESTINATION "${APP}/Contents/Resources")
 file(COPY "${CPACK_CURRENT_SOURCE_DIR}/icon.icns" DESTINATION "${APP}/Contents/Resources")
-file(RENAME "${APP}/Contents/Resources/icon.icns" "${APP}/Contents/Resources/${lmms}.icns")
+file(RENAME "${APP}/Contents/Resources/icon.icns" "${APP}/Contents/Resources/${project_name}.icns")
 
 # Copy Suil modules
 if(CPACK_SUIL_MODULES)
@@ -93,22 +106,22 @@ create_symlink("${QTDIR}/lib" "${CPACK_TEMPORARY_INSTALL_DIRECTORY}/lib")
 execute_process(COMMAND install_name_tool -change
 	"@rpath/libcarlabase.dylib"
 	"@loader_path/libcarlabase.dylib"
-	"${APP}/Contents/lib/${lmms}/libcarlapatchbay.so"
+	"${APP}/Contents/${plugin_dir}/libcarlapatchbay.so"
 	COMMAND_ECHO ${COMMAND_ECHO}
 	COMMAND_ERROR_IS_FATAL ANY)
 execute_process(COMMAND install_name_tool -change
 	"@rpath/libcarlabase.dylib"
 	"@loader_path/libcarlabase.dylib"
-	"${APP}/Contents/lib/${lmms}/libcarlarack.so"
+	"${APP}/Contents/${plugin_dir}/libcarlarack.so"
 	COMMAND_ECHO ${COMMAND_ECHO}
 	COMMAND_ERROR_IS_FATAL ANY)
 
 # Build list of executables to inform macdeployqt about
 # e.g. -executable=foo.dylib -executable=bar.dylib
-file(GLOB LIBS "${APP}/Contents/lib/${lmms}/*.so")
+file(GLOB LIBS "${APP}/Contents/${plugin_dir}/*.so")
 
 # Inform macdeployqt about LADSPA plugins; may depend on bundled fftw3f, etc.
-file(GLOB LADSPA "${APP}/Contents/lib/${lmms}/ladspa/*.so")
+file(GLOB LADSPA "${APP}/Contents/${plugin_dir}/ladspa/*.so")
 
 # Inform macdeployqt about remote plugins
 file(GLOB REMOTE_PLUGINS "${APP}/Contents/MacOS/*Remote*")
@@ -141,7 +154,7 @@ file(REMOVE "${CPACK_TEMPORARY_INSTALL_DIRECTORY}/lib")
 
 # Remove dummy carla libs, relink to a sane location (e.g. /Applications/Carla.app/...)
 # (must be done after calling macdeployqt)
-file(GLOB CARLALIBS "${APP}/Contents/lib/${lmms}/libcarla*")
+file(GLOB CARLALIBS "${APP}/Contents/${plugin_dir}/libcarla*")
 foreach(_carlalib IN LISTS CARLALIBS)
 	foreach(_lib "${CPACK_CARLA_LIBRARIES}")
 		set(_oldpath "../../Frameworks/lib${_lib}.dylib")

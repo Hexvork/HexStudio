@@ -170,8 +170,8 @@ void PluginBrowser::addPlugins()
 		}
 	);
 
-	// Add a root node to the tree for native HexImg plugins
-	const auto lmmsRoot = addRoot("HexImg");
+	// Add a root node to the tree for native HexStudio plugins
+	const auto lmmsRoot = addRoot("HexStudio");
 	lmmsRoot->setExpanded(true);
 
 	// Add all of the descriptors to the tree

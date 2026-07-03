@@ -575,7 +575,7 @@ bool MicrotunerConfig::saveScaleToFile()
 
 	QTextStream stream(&file);
 	stream << "! " << QFileInfo(fileName).fileName() << "\n";
-	stream << "! Exported from HexImg " LMMS_VERSION "\n";
+	stream << "! Exported from HexStudio " LMMS_VERSION "\n";
 	stream << "!\n";
 	stream << "! Scale description:\n";
 	stream << m_scaleNameEdit->text() << "\n";
@@ -611,7 +611,7 @@ bool MicrotunerConfig::saveKeymapToFile()
 
 	QTextStream stream(&file);
 	stream << "! " << QFileInfo(fileName).fileName() << "\n";
-	stream << "! Exported from HexImg " LMMS_VERSION "\n";
+	stream << "! Exported from HexStudio " LMMS_VERSION "\n";
 	stream << "!\n";
 	stream << "! Keymap description:\n";
 	stream << "!!" << m_keymapNameEdit->text() << "\n";

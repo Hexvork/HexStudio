@@ -55,7 +55,7 @@ Plugin::Descriptor PLUGIN_EXPORT ladspaeffect_plugin_descriptor =
 	"LADSPA",
 	QT_TRANSLATE_NOOP( "PluginBrowser",
 				"plugin for using arbitrary LADSPA-effects "
-				"inside HexImg." ),
+				"inside HexStudio." ),
 	"Danny McRae <khjklujn/at/users.sourceforge.net>",
 	0x0100,
 	Plugin::Type::Effect,
