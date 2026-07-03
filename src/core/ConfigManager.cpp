@@ -324,7 +324,7 @@ void ConfigManager::addRecentlyOpenedProject(const QString & file)
 		recentFile.suffix().toLower() == "mpt")
 	{
 		m_recentlyOpenedProjects.removeAll(file);
-		if(m_recentlyOpenedProjects.size() > 50)
+		if(m_recentlyOpenedProjects.size() >= 50)
 		{
 			m_recentlyOpenedProjects.removeLast();
 		}

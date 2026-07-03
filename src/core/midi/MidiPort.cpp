@@ -431,9 +431,15 @@ void MidiPort::updateOutputProgram()
 
 
 
-void MidiPort::invalidateCilent()
+void MidiPort::invalidateClient()
 {
 	m_midiClient = &s_dummyClient;
+}
+
+
+void MidiPort::invalidateCilent()
+{
+	invalidateClient();
 }
 
 

@@ -24,6 +24,8 @@
 
 #include "AudioEngine.h"
 
+#include <algorithm>
+
 #include "MixHelpers.h"
 
 #include "lmmsconfig.h"
@@ -81,7 +83,7 @@ AudioEngine::AudioEngine(bool renderOnly)
 	, m_outputBufferWrite(nullptr)
 	, m_outputBufferReadIndex(0)
 	, m_workers()
-	, m_numWorkers(QThread::idealThreadCount() - 1)
+	, m_numWorkers(std::max(0, QThread::idealThreadCount() - 1))
 	, m_newPlayHandles(PlayHandle::MaxNumber)
 	, m_masterGain(1.0f)
 	, m_audioDev(nullptr)

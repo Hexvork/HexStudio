@@ -37,7 +37,7 @@ MidiClient::~MidiClient()
 	//TODO: noteOffAll(); / clear all ports
 	for (MidiPort* port : m_midiPorts)
 	{
-		port->invalidateCilent();
+		port->invalidateClient();
 	}
 }
 

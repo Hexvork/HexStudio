@@ -136,6 +136,7 @@ public:
 		return m_writablePorts;
 	}
 
+	void invalidateClient();
 	void invalidateCilent();
 
 	gui::MidiPortMenu* m_readablePortsMenu;

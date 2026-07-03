@@ -422,7 +422,9 @@ bool DataFile::writeFile(const QString& filename, bool withResources)
 		return false;
 	}
 
-	if (ConfigManager::inst()->value("app", "disablebackup").toInt())
+	const bool hadExistingFile = QFile::exists(fullName);
+	const bool backupDisabled = ConfigManager::inst()->value("app", "disablebackup").toInt();
+	if (backupDisabled)
 	{
 		// remove current file
 		QFile::remove(fullName);
@@ -435,7 +437,18 @@ bool DataFile::writeFile(const QString& filename, bool withResources)
 		QFile::rename(fullName, fullNameBak);
 	}
 	// move temporary file to current file
-	QFile::rename(fullNameTemp, fullName);
+	if (!QFile::rename(fullNameTemp, fullName))
+	{
+		if (!backupDisabled && hadExistingFile && QFile::exists(fullNameBak) && !QFile::exists(fullName))
+		{
+			QFile::rename(fullNameBak, fullName);
+		}
+
+		showError(SongEditor::tr("Could not write file"),
+			SongEditor::tr("Could not move %1 to %2. The file could not be saved.")
+				.arg(fullNameTemp, fullName));
+		return false;
+	}
 
 	return true;
 }
@@ -482,7 +495,6 @@ bool DataFile::copyResources(const QString& resourcesDir)
 
 					// Check if we need to add a counter to the filename
 					QString finalFileName = QFileInfo(resPath).fileName();
-					QString extension = resPath.section('.', -1);
 					int repeatedNames = 0;
 					for (QString name : namesList)
 					{
@@ -497,8 +509,17 @@ bool DataFile::copyResources(const QString& resourcesDir)
 					{
 						// Remove the extension, add the counter and add the
 						// extension again to get the final file name
-						finalFileName.truncate(finalFileName.lastIndexOf('.'));
-						finalFileName = finalFileName + "-" + QString::number(repeatedNames) + "." + extension;
+						const int extensionPos = finalFileName.lastIndexOf('.');
+						if (extensionPos > 0)
+						{
+							const QString extension = finalFileName.mid(extensionPos);
+							finalFileName.truncate(extensionPos);
+							finalFileName = finalFileName + "-" + QString::number(repeatedNames) + extension;
+						}
+						else
+						{
+							finalFileName = finalFileName + "-" + QString::number(repeatedNames);
+						}
 					}
 
 					// Final path is our resources dir + the new file name
@@ -569,9 +590,9 @@ bool DataFile::hasLocalPlugins(QDomElement parent /* = QDomElement()*/, bool fir
 		if (!skipNode)
 		{
 			auto attributes = childElement.attributes();
-			for (int i = 0; i < attributes.size(); ++i)
+			for (int attrIndex = 0; attrIndex < attributes.size(); ++attrIndex)
 			{
-				QDomNode attribute = attributes.item(i);
+				QDomNode attribute = attributes.item(attrIndex);
 				QDomAttr attr = attribute.toAttr();
 				if (attr.value().startsWith(PathUtil::basePrefix(PathUtil::Base::LocalDir),
 					Qt::CaseInsensitive))
@@ -844,7 +865,7 @@ void DataFile::upgrade_0_2_1_20070508()
 			for( int j = 0; !vol_list.item( j ).isNull();
 								++j )
 			{
-				QDomElement timeEl = list.item( j )
+				QDomElement timeEl = vol_list.item( j )
 							.toElement();
 				int value = timeEl.attribute( "value" )
 							.toInt();

@@ -31,6 +31,18 @@
 namespace lmms
 {
 
+namespace
+{
+
+f_cnt_t boundedWriteLength(f_cnt_t length, f_cnt_t defaultLength, size_t bufferSize)
+{
+	if( length == 0 ) { length = defaultLength; }
+	const auto maxLength = static_cast<f_cnt_t>(bufferSize);
+	return length > maxLength ? maxLength : length;
+}
+
+} // namespace
+
  
 RingBuffer::RingBuffer( f_cnt_t size ) : 
 	m_fpp( Engine::audioEngine()->framesPerPeriod() ),
@@ -196,7 +208,7 @@ void RingBuffer::read( SampleFrame* dst, float offset, f_cnt_t length )
 void RingBuffer::write( SampleFrame* src, f_cnt_t offset, f_cnt_t length )
 {
 	const f_cnt_t pos = ( m_position + offset ) % m_size;
-	if( length == 0 ) { length = m_fpp; }
+	length = boundedWriteLength(length, m_fpp, m_size);
 	
 	if( pos + length <= m_size ) // we won't go over the edge so we can just memcpy here
 	{
@@ -223,7 +235,7 @@ void RingBuffer::write( SampleFrame* src, float offset, f_cnt_t length )
 void RingBuffer::writeAdding( SampleFrame* src, f_cnt_t offset, f_cnt_t length )
 {
 	const f_cnt_t pos = ( m_position + offset ) % m_size;
-	if( length == 0 ) { length = m_fpp; }
+	length = boundedWriteLength(length, m_fpp, m_size);
 	
 	if( pos + length <= m_size ) // we won't go over the edge so we can just memcpy here
 	{
@@ -251,7 +263,7 @@ void RingBuffer::writeAddingMultiplied( SampleFrame* src, f_cnt_t offset, f_cnt_
 {
 	const f_cnt_t pos = ( m_position + offset ) % m_size;
 	//qDebug( "pos %d m_pos %d ofs %d siz %d", pos, m_position, offset, m_size );
-	if( length == 0 ) { length = m_fpp; }
+	length = boundedWriteLength(length, m_fpp, m_size);
 	
 	if( pos + length <= m_size ) // we won't go over the edge so we can just memcpy here
 	{
@@ -279,7 +291,7 @@ void RingBuffer::writeAddingMultiplied( SampleFrame* src, float offset, f_cnt_t 
 void RingBuffer::writeSwappedAddingMultiplied( SampleFrame* src, f_cnt_t offset, f_cnt_t length, float level )
 {
 	const f_cnt_t pos = ( m_position + offset ) % m_size;
-	if( length == 0 ) { length = m_fpp; }
+	length = boundedWriteLength(length, m_fpp, m_size);
 	
 	if( pos + length <= m_size ) // we won't go over the edge so we can just memcpy here
 	{
@@ -306,11 +318,14 @@ void RingBuffer::writeSwappedAddingMultiplied( SampleFrame* src, float offset, f
 void RingBuffer::updateSamplerate()
 {
 	float newsize = static_cast<float>( ( m_size - m_fpp ) * Engine::audioEngine()->outputSampleRate() ) / m_samplerate;
-	m_size = static_cast<f_cnt_t>( ceilf( newsize ) ) + m_fpp;
+	const auto newBufferSize = static_cast<f_cnt_t>( ceilf( newsize ) ) + m_fpp;
+	SampleFrame* newBuffer = new SampleFrame[ newBufferSize ];
+	zeroSampleFrames(newBuffer, newBufferSize);
+
 	m_samplerate = Engine::audioEngine()->outputSampleRate();
 	delete[] m_buffer;
-	m_buffer = new SampleFrame[ m_size ];
-	zeroSampleFrames(m_buffer, m_size);
+	m_size = newBufferSize;
+	m_buffer = newBuffer;
 	m_position = 0;
 }
 

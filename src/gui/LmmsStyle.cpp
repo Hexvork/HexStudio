@@ -26,6 +26,7 @@
 #include <array>
 
 #include <QApplication>
+#include <QDebug>
 #include <QFile>
 #include <QFileInfo>
 #include <QPainter>
@@ -78,7 +79,7 @@ QLinearGradient darken( const QLinearGradient & _gradient )
 	for (auto& stop : stops)
 	{
 		QColor color = stop.second;
-		stop.second = color.lighter(133);
+		stop.second = color.darker(133);
 	}
 
 	QLinearGradient g = _gradient;
@@ -137,16 +138,21 @@ LmmsStyle::LmmsStyle() :
 	QProxyStyle()
 {
 	QFile file( "resources:style.css" );
-	file.open( QIODevice::ReadOnly );
-	qApp->setStyleSheet( file.readAll() );
+	if (file.open( QIODevice::ReadOnly ))
+	{
+		qApp->setStyleSheet( file.readAll() );
+	}
+	else
+	{
+		qWarning() << "Could not open stylesheet" << file.fileName();
+	}
 
 	m_styleReloader.addPath(QFileInfo{file}.absoluteFilePath());
 	connect(&m_styleReloader, &QFileSystemWatcher::fileChanged, this,
 		[this](const QString& path)
 		{
-			if (auto file = QFile{path}; file.exists())
+			if (auto file = QFile{path}; file.exists() && file.open(QIODevice::ReadOnly))
 			{
-				file.open(QIODevice::ReadOnly);
 				qApp->setStyleSheet(file.readAll());
 				TextFloat::displayMessage(
 					tr("Theme updated"),
@@ -159,6 +165,10 @@ LmmsStyle::LmmsStyle() :
 				{
 					m_styleReloader.addPath(path);
 				}
+			}
+			else
+			{
+				qWarning() << "Could not reload stylesheet" << path;
 			}
 		}
 	);
@@ -240,14 +250,14 @@ void LmmsStyle::drawPrimitive( PrimitiveElement element,
 
 		int a100 = 165;
 		int a75 = static_cast<int>( a100 * .75 );
-		int a50 = static_cast<int>( a100 * .6 );
-		int a25 = static_cast<int>( a100 * .33 );
+		int a60 = static_cast<int>( a100 * .6 );
+		int a33 = static_cast<int>( a100 * .33 );
 
 		auto lines = std::array<QLine, 4>{};
 		auto points = std::array<QPoint, 4>{};
 
 		// black inside lines
-		// 50%
+		// 100%
 		black.setAlpha(a100);
 		painter->setPen(QPen(black, 0));
 		lines[0] = QLine(rect.left() + 2, rect.top() + 1,
@@ -261,7 +271,7 @@ void LmmsStyle::drawPrimitive( PrimitiveElement element,
 		painter->drawLines(lines.data(), 4);
 
 		// black inside dots
-		black.setAlpha(a50);
+		black.setAlpha(a60);
 		painter->setPen(QPen(black, 0));
 		points[0] = QPoint(rect.left() + 2, rect.top() + 2);
 		points[1] = QPoint(rect.left() + 2, rect.bottom() - 2);
@@ -271,7 +281,7 @@ void LmmsStyle::drawPrimitive( PrimitiveElement element,
 
 
 		// outside lines - shadow
-		// 100%
+		// 75%
 		shadow.setAlpha(a75);
 		painter->setPen(QPen(shadow, 0));
 		lines[0] = QLine(rect.left() + 2, rect.top(),
@@ -281,16 +291,16 @@ void LmmsStyle::drawPrimitive( PrimitiveElement element,
 		painter->drawLines(lines.data(), 2);
 
 		// outside corner dots - shadow
-		// 75%
-		shadow.setAlpha(a50);
+		// 60%
+		shadow.setAlpha(a60);
 		painter->setPen(QPen(shadow, 0));
 		points[0] = QPoint(rect.left() + 1, rect.top() + 1);
 		points[1] = QPoint(rect.right() - 1, rect.top() + 1);
 		painter->drawPoints(points.data(), 2);
 
 		// outside end dots - shadow
-		// 50%
-		shadow.setAlpha(a25);
+		// 33%
+		shadow.setAlpha(a33);
 		painter->setPen(QPen(shadow, 0));
 		points[0] = QPoint(rect.left() + 1, rect.top());
 		points[1] = QPoint(rect.left(), rect.top() + 1);
@@ -300,7 +310,7 @@ void LmmsStyle::drawPrimitive( PrimitiveElement element,
 
 
 		// outside lines - highlight
-		// 100%
+		// 75%
 		highlight.setAlpha(a75);
 		painter->setPen(QPen(highlight, 0));
 		lines[0] = QLine(rect.left() + 2, rect.bottom(),
@@ -310,16 +320,16 @@ void LmmsStyle::drawPrimitive( PrimitiveElement element,
 		painter->drawLines(lines.data(), 2);
 
 		// outside corner dots - highlight
-		// 75%
-		highlight.setAlpha(a50);
+		// 60%
+		highlight.setAlpha(a60);
 		painter->setPen(QPen(highlight, 0));
 		points[0] = QPoint(rect.left() + 1, rect.bottom() - 1);
 		points[1] = QPoint(rect.right() - 1, rect.bottom() - 1);
 		painter->drawPoints(points.data(), 2);
 
 		// outside end dots - highlight
-		// 50%
-		highlight.setAlpha(a25);
+		// 33%
+		highlight.setAlpha(a33);
 		painter->setPen(QPen(highlight, 0));
 		points[0] = QPoint(rect.right() - 1, rect.bottom());
 		points[1] = QPoint(rect.right(), rect.bottom() - 1);
