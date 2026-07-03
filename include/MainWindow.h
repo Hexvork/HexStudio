@@ -182,6 +182,7 @@ protected:
 	void keyPressEvent( QKeyEvent * _ke ) override;
 	void keyReleaseEvent( QKeyEvent * _ke ) override;
 	void timerEvent( QTimerEvent * _ev ) override;
+	void changeEvent( QEvent * _event ) override;
 
 
 private:

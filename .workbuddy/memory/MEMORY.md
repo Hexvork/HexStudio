@@ -23,8 +23,13 @@
 ## 已有主题（2026-07 新增）
 - `default`：深色复古拟物（#111314 底 + 绿色强调 + 斜角边框）
 - `classic`：浅色经典
-- `fluent-dark`：Win11 Fluent 深色（#1F1F1F 底 + #60CDFF 强调蓝 + Segoe UI + 扁平圆角）
+- `fluent-dark`：**v2** Win11 Fluent 深色（**#1A1A1A 底 + #60CDFF 强调蓝 + Segoe UI Variable + 微渐变按钮 + 胶囊圆角滚动条 + 四层层级递进**）
 - `fluent-light`：Win11 Fluent 浅色（#F3F3F3 底 + #0078D4 强调蓝）
+
+## 已知 UI Bug 及修复（2026-07-03）
+- **SubWindow eventFilter 吞噬 WindowStateChange**（L620-622）：导致放大后 QComboBox/QMenu 弹窗定位错误、控件点不了 → 修复为传递基类处理
+- **SubWindow changeEvent 缺少 WindowStateChange 分支**：放大/缩小后不更新标题栏按钮 → 新增分支调用 adjustTitleBar()
+- **MainWindow 无 changeEvent**：最小化恢复后窗口无焦点/无响应 → 新增 changeEvent 实现 activateWindow() 恢复焦点
 
 ## 翻译状态
 - zh_CN.ts 已达 100%（2026-07-02 从 59.5% 补全，1217 条未译全部翻译）

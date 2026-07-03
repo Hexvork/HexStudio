@@ -154,13 +154,19 @@ void SubWindow::paintEvent( QPaintEvent * )
  * Triggers if the window title changes and calls adjustTitleBar().
  * @param event
  */
-void SubWindow::changeEvent( QEvent *event )
+void SubWindow::changeEvent( QEvent* event )
 {
 	QMdiSubWindow::changeEvent( event );
 
 	if( event->type() == QEvent::WindowTitleChange )
 	{
 		adjustTitleBar();
+	}
+	else if( event->type() == QEvent::WindowStateChange )
+	{
+		// Update title bar buttons visibility on maximize/restore/minimize
+		adjustTitleBar();
+		update();
 	}
 }
 
@@ -618,8 +624,11 @@ bool SubWindow::eventFilter(QObject* obj, QEvent* event)
 	switch (event->type())
 	{
 		case QEvent::WindowStateChange:
-			event->accept();
-			return true;
+			// Pass through to base class instead of swallowing.
+			// Previously this returned true, which prevented child widgets
+			// from receiving state changes — breaking Qt's internal popup
+			// geometry tracking (QComboBox/QMenu popups unclickable after maximize).
+			return QMdiSubWindow::eventFilter(obj, event);
 
 		case QEvent::Close:
 			if (isDetached())

@@ -1367,6 +1367,29 @@ void MainWindow::timerEvent( QTimerEvent * _te)
 	emit periodicUpdate();
 }
 
+void MainWindow::changeEvent( QEvent* _event )
+{
+	QMainWindow::changeEvent( _event );
+
+	if( _event->type() == QEvent::WindowStateChange )
+	{
+		// Track maximized state for fullscreen toggle (F11)
+		maximized = isMaximized();
+
+		// When restoring from minimized state, re-activate the window
+		// so child widgets regain focus and respond to input again.
+		// Fixes "no response after clicking minimize then restore".
+		if( !( windowState() & Qt::WindowMinimized ) )
+		{
+			activateWindow();
+			if( m_workspace )
+			{
+				m_workspace->activateWindow();
+			}
+		}
+	}
+}
+
 
 
 
