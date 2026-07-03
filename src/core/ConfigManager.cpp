@@ -728,19 +728,19 @@ void ConfigManager::initDevelopmentWorkingDir()
 		cmakeCache.open(QFile::ReadOnly);
 		QTextStream stream(&cmakeCache);
 
-		// Find the lines containing something like lmms_SOURCE_DIR:static=<dir>
-		// and lmms_BINARY_DIR:static=<dir>
+		// Find the lines containing something like LMMS_SOURCE_DIR:INTERNAL=<dir>
+		// and LMMS_BINARY_DIR:INTERNAL=<dir>
 		int done = 0;
 		while(! stream.atEnd())
 		{
 			QString line = stream.readLine();
 
-			if (line.startsWith("lmms_SOURCE_DIR:")) {
+			if (line.startsWith("LMMS_SOURCE_DIR:")) {
 				QString srcDir = line.section('=', -1).trimmed();
 				QDir::addSearchPath("data", srcDir + "/data/");
 				done++;
 			}
-			if (line.startsWith("lmms_BINARY_DIR:")) {
+			if (line.startsWith("LMMS_BINARY_DIR:")) {
 				m_lmmsRcFile = line.section('=', -1).trimmed() +  QDir::separator() +
 							   ".lmmsrc.xml";
 				done++;

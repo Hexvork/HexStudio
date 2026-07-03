@@ -26,12 +26,25 @@
 #include <QtTest>
 
 #include "ConfigManager.h"
+#include "Engine.h"
 #include "PathUtil.h"
 
 class RelativePathsTest : public QObject
 {
 	Q_OBJECT
 private slots:
+	void initTestCase()
+	{
+		using namespace lmms;
+		Engine::init(true);
+	}
+
+	void cleanupTestCase()
+	{
+		using namespace lmms;
+		Engine::destroy();
+	}
+
 	void PathUtilComparisonTests()
 	{
 		using namespace lmms;

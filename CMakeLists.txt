@@ -23,8 +23,8 @@ enable_policy_if_exists(CMP0141) # MSVC debug information format flags are selec
 PROJECT(HexImg)
 
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules" ${CMAKE_MODULE_PATH})
-SET(LMMS_BINARY_DIR ${CMAKE_BINARY_DIR})
-SET(LMMS_SOURCE_DIR ${CMAKE_SOURCE_DIR})
+SET(LMMS_BINARY_DIR ${CMAKE_BINARY_DIR} CACHE INTERNAL "LMMS binary directory")
+SET(LMMS_SOURCE_DIR ${CMAKE_SOURCE_DIR} CACHE INTERNAL "LMMS source directory")
 
 # Import of windows.h breaks min()/max()
 ADD_DEFINITIONS(-DNOMINMAX)
