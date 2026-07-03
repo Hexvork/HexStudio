@@ -36,14 +36,14 @@ private slots:
 	{
 		using namespace lmms;
 
-		QFileInfo fi(ConfigManager::inst()->factorySamplesDir() + "/drums/kick01.ogg");
+		QFileInfo fi(ConfigManager::inst()->factorySamplesDir() + "/drums/bassdrum01.ogg");
 		QVERIFY(fi.exists());
 
 		QString absPath = fi.absoluteFilePath();
-		QString oldRelPath = "drums/kick01.ogg";
-		QString relPath = PathUtil::basePrefix(PathUtil::Base::FactorySample) + "drums/kick01.ogg";
+		QString oldRelPath = "drums/bassdrum01.ogg";
+		QString relPath = PathUtil::basePrefix(PathUtil::Base::FactorySample) + "drums/bassdrum01.ogg";
 		QString fuzPath = absPath;
-		fuzPath.replace(relPath, "drums/.///kick01.ogg");
+		fuzPath.replace(oldRelPath, "drums/.///bassdrum01.ogg");
 
 		//Test nicely formatted paths
 		QCOMPARE(PathUtil::toShortestRelative(absPath), relPath);
