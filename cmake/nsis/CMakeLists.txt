@@ -18,7 +18,16 @@ SET(CPACK_NSIS_DEFINES                  "
   !addincludedir ${CMAKE_SOURCE_DIR}/cmake/nsis
   !include FileAssociation.nsh
   !include LogicLib.nsh
-  !include WinVer.nsh")
+  !include WinVer.nsh
+  !define MUI_LANGDLL_ALLLANGUAGES
+  !define MUI_LANGDLL_ALWAYSSHOW
+  !define MUI_LANGDLL_REGISTRY_ROOT \\\"HKCU\\\"
+  !define MUI_LANGDLL_REGISTRY_KEY \\\"Software\\\\${PROJECT_NAME_UCASE}\\\"
+  !define MUI_LANGDLL_REGISTRY_VALUENAME \\\"Installer Language\\\"
+  !define MUI_CUSTOMFUNCTION_GUIINIT HexImgSelectInstallerLanguage
+  Function HexImgSelectInstallerLanguage
+    !insertmacro MUI_LANGDLL_DISPLAY
+  FunctionEnd")
 SET(CPACK_PACKAGE_FILE_NAME             "${CMAKE_PROJECT_NAME}-${VERSION}-${WIN_PLATFORM}-win32")
 SET(CPACK_NSIS_EXTRA_INSTALL_COMMANDS   "
   \\\${registerExtension} \\\"$INSTDIR\\\\${CMAKE_PROJECT_NAME}.exe\\\" \\\".mmp\\\" \\\"${PROJECT_NAME_UCASE} Project\\\"

@@ -1,14 +1,14 @@
 <div align="center">
 	<h1>
-	<img src="https://raw.githubusercontent.com/LMMS/artwork/master/Icon%20%26%20Mimetypes/lmms-64x64.svg" alt="LMMS Logo"><br>LMMS
+	<img src="https://raw.githubusercontent.com/Hexvork/artwork/master/Icon%20%26%20Mimetypes/lmms-64x64.svg" alt="HexImg Logo"><br>HexImg
 	</h1>
 	<p>Cross-platform music production software</p>
 	<p>
 		<a href="https://lmms.io/">Website</a>
 		⦁︎
-		<a href="https://github.com/LMMS/lmms/releases">Releases</a>
+		<a href="https://github.com/Hexvork/lmms/releases">Releases</a>
 		⦁︎
-		<a href="https://github.com/LMMS/lmms/wiki">Developer wiki</a>
+		<a href="https://github.com/Hexvork/lmms/wiki">Developer wiki</a>
 		⦁︎
 		<a href="https://lmms.io/documentation">User manual</a>
 		⦁︎
@@ -17,18 +17,18 @@
 		<a href="https://lmms.io/lsp/">Sharing platform</a>
 	</p>
 	<p>
-		<a href="https://github.com/LMMS/lmms/actions/workflows/build.yml"><img src="https://github.com/LMMS/lmms/actions/workflows/build.yml/badge.svg" alt="Build status"></a>
-		<a href="https://lmms.io/download"><img src="https://img.shields.io/github/release/LMMS/lmms.svg?maxAge=3600" 	alt="Latest stable release"></a>
-		<a href="https://github.com/LMMS/lmms/releases"><img src="https://img.shields.io/github/downloads/LMMS/lmms/total.svg?maxAge=3600" alt="Overall downloads on Github"></a>
+		<a href="https://github.com/Hexvork/lmms/actions/workflows/build.yml"><img src="https://github.com/Hexvork/lmms/actions/workflows/build.yml/badge.svg" alt="Build status"></a>
+		<a href="https://github.com/Hexvork/lmms/releases"><img src="https://img.shields.io/github/release/Hexvork/lmms.svg?maxAge=3600" alt="Latest stable release"></a>
+		<a href="https://github.com/Hexvork/lmms/releases"><img src="https://img.shields.io/github/downloads/Hexvork/lmms/total.svg?maxAge=3600" alt="Overall downloads on Github"></a>
 		<a href="https://discord.gg/3sc5su7"><img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg" alt="Join the chat at Discord"></a>
 		<a href="https://www.transifex.com/lmms/lmms/"><img src="https://img.shields.io/badge/localise-on_transifex-green.svg"></a>
 	</p>
 </div>
 
-What is LMMS?
+What is HexImg?
 --------------
 
-LMMS is an open-source cross-platform digital audio workstation designed for music production. It includes an advanced Piano Roll, Beat Sequencer, Song Editor, and Mixer for composing, arranging, and mixing music. It comes with 15+ synthesizer plugins by default, along with VST2 and SoundFont2 support.
+HexImg is an open-source cross-platform digital audio workstation designed for music production. It includes an advanced Piano Roll, Beat Sequencer, Song Editor, and Mixer for composing, arranging, and mixing music. It comes with 15+ synthesizer plugins by default, along with VST2 and SoundFont2 support.
 
 Features
 ---------
@@ -45,13 +45,13 @@ Features
 Building
 ---------
 
-See [Compiling LMMS](https://github.com/LMMS/lmms/wiki/Compiling)
+See [Compiling HexImg](https://github.com/Hexvork/lmms/wiki/Compiling)
 
-Join LMMS-development
+Join HexImg development
 ----------------------
 
-If you are interested in LMMS, its programming, artwork, testing, writing demo songs, (and improving this README...) or something like that, you're welcome to participate in the development of LMMS!
+If you are interested in HexImg, its programming, artwork, testing, writing demo songs, (and improving this README...) or something like that, you're welcome to participate in the development of HexImg!
 
-Information about what you can do and how can be found in the [wiki](https://github.com/LMMS/lmms/wiki).
+Information about what you can do and how can be found in the [wiki](https://github.com/Hexvork/lmms/wiki).
 
-Before coding a new big feature, please _always_ [file an issue](https://github.com/LMMS/lmms/issues/new) for your idea and suggestions about your feature and about the intended implementation on GitHub, or ask in one of the tech channels on Discord and wait for replies! Maybe there are different ideas, improvements, or hints, or maybe your feature is not welcome/needed at the moment.
+Before coding a new big feature, please _always_ [file an issue](https://github.com/Hexvork/lmms/issues/new) for your idea and suggestions about your feature and about the intended implementation on GitHub, or ask in one of the tech channels on Discord and wait for replies! Maybe there are different ideas, improvements, or hints, or maybe your feature is not welcome/needed at the moment.

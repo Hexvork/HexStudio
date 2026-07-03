@@ -20,7 +20,7 @@ enable_policy_if_exists(CMP0092) # MSVC warning flags are not in CMAKE_<LANG>_FL
 # Needed for ccache support with MSVC
 enable_policy_if_exists(CMP0141) # MSVC debug information format flags are selected by an abstraction.
 
-PROJECT(lmms)
+PROJECT(HexImg)
 
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules" ${CMAKE_MODULE_PATH})
 SET(LMMS_BINARY_DIR ${CMAKE_BINARY_DIR})
@@ -49,9 +49,9 @@ STRING(TOUPPER          "${CMAKE_PROJECT_NAME}" PROJECT_NAME_UCASE)
 
 SET(PROJECT_YEAR 2026)
 
-SET(PROJECT_AUTHOR      "LMMS Developers")
-SET(PROJECT_URL         "https://lmms.io")
-SET(PROJECT_EMAIL       "lmms-devel@lists.sourceforge.net")
+SET(PROJECT_AUTHOR      "HexImg Developers")
+SET(PROJECT_URL         "https://github.com/Hexvork/lmms")
+SET(PROJECT_EMAIL       "i@hexvork.com")
 SET(PROJECT_DESCRIPTION "${PROJECT_NAME_UCASE} - Free music production software")
 SET(PROJECT_COPYRIGHT   "2008-${PROJECT_YEAR} ${PROJECT_AUTHOR}")
 SET(VERSION_MAJOR       "1")
@@ -108,6 +108,7 @@ OPTION(BUNDLE_QT_TRANSLATIONS	"Install Qt translation files for LMMS" OFF)
 option(WANT_DEBUG_CPACK "Show detailed logs for packaging commands" OFF)
 option(WANT_CPACK_TARBALL "Request CPack to create a tarball instead of an installer" OFF)
 option(WANT_QT6 "Build with experimental Qt6 support" OFF)
+option(WANT_MANPAGE "Build the Unix man page" OFF)
 
 
 IF(LMMS_BUILD_APPLE)
@@ -776,6 +777,7 @@ ADD_SUBDIRECTORY(data)
 # install tasks
 ADD_SUBDIRECTORY(cmake/install)
 
+IF(WANT_MANPAGE)
 FIND_PACKAGE(UnixCommands)
 IF(GZIP)
 	ADD_CUSTOM_COMMAND(OUTPUT "${CMAKE_BINARY_DIR}/lmms.1.gz"
@@ -789,6 +791,7 @@ IF(GZIP)
 					DEPENDS "${CMAKE_BINARY_DIR}/lmms.1.gz")
 ELSEIF(UNIX)
 	MESSAGE(FATAL_ERROR "Can't find gzip required for generating lmms.1.gz")
+ENDIF()
 ENDIF()
 
 # install headers

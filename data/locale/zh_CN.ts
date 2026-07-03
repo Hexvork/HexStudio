@@ -5,13 +5,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../../src/gui/modals/about_dialog.ui" line="20" />
-        <source>About LMMS</source>
-        <translation>关于LMMS</translation>
+        <source>About HexImg</source>
+        <translation>关于 HexImg</translation>
     </message>
     <message>
         <location filename="../../src/gui/modals/about_dialog.ui" line="43" />
-        <source>LMMS</source>
-        <translation>LMMS</translation>
+        <source>HexImg</source>
+        <translation>HexImg</translation>
     </message>
     <message>
         <location filename="../../src/gui/modals/about_dialog.ui" line="50" />
@@ -25,8 +25,8 @@
     </message>
     <message>
         <location filename="../../src/gui/modals/about_dialog.ui" line="100" />
-        <source>LMMS - easy music production for everyone.</source>
-        <translation>LMMS - 人人都是作曲家</translation>
+        <source>HexImg - easy music production for everyone.</source>
+        <translation>HexImg - 人人都能轻松制作音乐。</translation>
     </message>
     <message>
         <location filename="../../src/gui/modals/about_dialog.ui" line="126" />
@@ -61,7 +61,7 @@
     <message>
         <location filename="../../src/gui/modals/about_dialog.ui" line="220" />
         <source>Current language not translated (or native English).
-If you're interested in translating LMMS in another language or want to improve existing translations, you're welcome to help us! Simply contact the maintainer!</source>
+If you're interested in translating HexImg in another language or want to improve existing translations, you're welcome to help us! Simply contact the maintainer!</source>
         <translation>当前语言是中文（中国）
 
 翻译人员：
@@ -879,12 +879,12 @@ Terry Lee &lt;ltj20120319 at outlook.com&gt;
     <message>
         <location filename="../../plugins/Compressor/Compressor.cpp" line="45" />
         <source>A dynamic range compressor.</source>
-        <translation>一个动态范围压缩器</translation>
+        <translation>动态范围压缩器。</translation>
     </message>
     <message>
         <location filename="../../plugins/CrossoverEQ/CrossoverEQ.cpp" line="43" />
         <source>A 4-band Crossover Equalizer</source>
-        <translation>一个四波段交叉均衡器</translation>
+        <translation>四段分频均衡器</translation>
     </message>
     <message>
         <location filename="../../plugins/Delay/DelayEffect.cpp" line="44" />
@@ -914,7 +914,7 @@ Terry Lee &lt;ltj20120319 at outlook.com&gt;
     <message>
         <location filename="../../plugins/FreeBoy/FreeBoy.cpp" line="61" />
         <source>Emulation of GameBoy (TM) APU</source>
-        <translation>GameBoy (TM) APU 模拟器</translation>
+        <translation>GameBoy (TM) APU 声音芯片模拟器</translation>
     </message>
     <message>
         <location filename="../../plugins/GigPlayer/GigPlayer.cpp" line="70" />
@@ -923,13 +923,13 @@ Terry Lee &lt;ltj20120319 at outlook.com&gt;
     </message>
     <message>
         <location filename="../../plugins/HydrogenImport/HydrogenImport.cpp" line="30" />
-        <source>Filter for importing Hydrogen files into LMMS</source>
-        <translation>导入 Hydrogen 工程文件到 LMMS 的解析器</translation>
+        <source>Filter for importing Hydrogen files into HexImg</source>
+        <translation>用于将 Hydrogen 工程文件导入 HexImg 的过滤器</translation>
     </message>
     <message>
         <location filename="../../plugins/Kicker/Kicker.cpp" line="53" />
         <source>Versatile drum synthesizer</source>
-        <translation>多功能鼓合成器</translation>
+        <translation>多用途鼓合成器</translation>
     </message>
     <message>
         <location filename="../../plugins/LadspaBrowser/LadspaBrowser.cpp" line="54" />
@@ -938,38 +938,38 @@ Terry Lee &lt;ltj20120319 at outlook.com&gt;
     </message>
     <message>
         <location filename="../../plugins/LadspaEffect/LadspaEffect.cpp" line="56" />
-        <source>plugin for using arbitrary LADSPA-effects inside LMMS.</source>
-        <translation>在 LMMS 中使用任意 LADSPA 效果的插件。</translation>
+        <source>plugin for using arbitrary LADSPA-effects inside HexImg.</source>
+        <translation>用于在 HexImg 中使用任意 LADSPA 效果器的插件。</translation>
     </message>
     <message>
         <location filename="../../plugins/Lb302/Lb302.cpp" line="86" />
         <source>Incomplete monophonic imitation TB-303</source>
-        <translation>不完整的单音 TB-303 模仿</translation>
+        <translation>单音 TB-303 风格贝司合成器</translation>
     </message>
     <message>
         <location filename="../../plugins/Lv2Effect/Lv2Effect.cpp" line="46" />
-        <source>plugin for using arbitrary LV2-effects inside LMMS.</source>
-        <translation>在 LMMS 中使用任意 LV2 效果的插件。</translation>
+        <source>plugin for using arbitrary LV2-effects inside HexImg.</source>
+        <translation>用于在 HexImg 中使用任意 LV2 效果器的插件。</translation>
     </message>
     <message>
         <location filename="../../plugins/Lv2Instrument/Lv2Instrument.cpp" line="54" />
-        <source>plugin for using arbitrary LV2 instruments inside LMMS.</source>
-        <translation>在 LMMS 中使用任意 LV2 乐器的插件。</translation>
+        <source>plugin for using arbitrary LV2 instruments inside HexImg.</source>
+        <translation>用于在 HexImg 中使用任意 LV2 乐器的插件。</translation>
     </message>
     <message>
         <location filename="../../plugins/MidiExport/MidiExport.cpp" line="49" />
-        <source>Filter for exporting MIDI-files from LMMS</source>
-        <translation> 从 LMMS 导出 MIDI 文件的生成器</translation>
+        <source>Filter for exporting MIDI-files from HexImg</source>
+        <translation>用于从 HexImg 导出 MIDI 文件的过滤器</translation>
     </message>
     <message>
         <location filename="../../plugins/MidiImport/MidiImport.cpp" line="68" />
-        <source>Filter for importing MIDI-files into LMMS</source>
-        <translation>导入 MIDI 文件到 LMMS 的解析器</translation>
+        <source>Filter for importing MIDI-files into HexImg</source>
+        <translation>用于将 MIDI 文件导入 HexImg 的过滤器</translation>
     </message>
     <message>
         <location filename="../../plugins/Monstro/Monstro.cpp" line="48" />
         <source>Monstrous 3-oscillator synth with modulation matrix</source>
-        <translation>带 3 个振荡器和调制矩阵的能发出像怪兽一样声音的合成器</translation>
+        <translation>带调制矩阵的三振荡器合成器</translation>
     </message>
     <message>
         <location filename="../../plugins/MultitapEcho/MultitapEcho.cpp" line="43" />
@@ -979,12 +979,12 @@ Terry Lee &lt;ltj20120319 at outlook.com&gt;
     <message>
         <location filename="../../plugins/Nes/Nes.cpp" line="49" />
         <source>A NES-like synthesizer</source>
-        <translation>类似于 NES 的合成器</translation>
+        <translation>NES 风格合成器</translation>
     </message>
     <message>
         <location filename="../../plugins/OpulenZ/OpulenZ.cpp" line="71" />
         <source>2-operator FM Synth</source>
-        <translation>双算子 FM 合成器</translation>
+        <translation>双运算器 FM 合成器</translation>
     </message>
     <message>
         <location filename="../../plugins/Organic/Organic.cpp" line="51" />
@@ -1009,24 +1009,24 @@ Terry Lee &lt;ltj20120319 at outlook.com&gt;
     <message>
         <location filename="../../plugins/Sf2Player/Sf2Player.cpp" line="64" />
         <source>Player for SoundFont files</source>
-        <translation>在工程中使用 SoundFont</translation>
+        <translation>SoundFont 文件播放器</translation>
     </message>
     <message>
         <location filename="../../plugins/Sfxr/Sfxr.cpp" line="66" />
-        <source>LMMS port of sfxr</source>
-        <translation>sfxr 的 LMMS 移植版本</translation>
+        <source>HexImg port of sfxr</source>
+        <translation>sfxr 的 HexImg 移植版本</translation>
     </message>
     <message>
         <location filename="../../plugins/Sid/SidInstrument.cpp" line="79" />
         <source>Emulation of the MOS6581 and MOS8580 SID.
 This chip was used in the Commodore 64 computer.</source>
-        <translation>模拟 MOS6581 和 MOS8580 SID 的模拟器
+        <translation>MOS6581 和 MOS8580 SID 声音芯片模拟器
 这些芯片曾在 Commodore 64 电脑上用过。</translation>
     </message>
     <message>
         <location filename="../../plugins/SpectrumAnalyzer/Analyzer.cpp" line="48" />
         <source>A graphical spectrum analyzer.</source>
-        <translation>一款图形频谱分析器</translation>
+        <translation>图形化频谱分析器。</translation>
     </message>
     <message>
         <location filename="../../plugins/StereoEnhancer/StereoEnhancer.cpp" line="42" />
@@ -1041,12 +1041,12 @@ This chip was used in the Commodore 64 computer.</source>
     <message>
         <location filename="../../plugins/Stk/Mallets/Mallets.cpp" line="59" />
         <source>Tuneful things to bang on</source>
-        <translation>可敲击的调音物件</translation>
+        <translation>可调音的打击乐器</translation>
     </message>
     <message>
         <location filename="../../plugins/TripleOscillator/TripleOscillator.cpp" line="56" />
         <source>Three powerful oscillators you can modulate in several ways</source>
-        <translation>三个可以任你调制的强大振荡器</translation>
+        <translation>可用多种方式调制的三振荡器合成器</translation>
     </message>
     <message>
         <location filename="../../plugins/Vectorscope/Vectorscope.cpp" line="39" />
@@ -1055,23 +1055,23 @@ This chip was used in the Commodore 64 computer.</source>
     </message>
     <message>
         <location filename="../../plugins/Vestige/Vestige.cpp" line="76" />
-        <source>VST-host for using VST(i)-plugins within LMMS</source>
-        <translation>LMMS的VST(i)插件宿主</translation>
+        <source>VST-host for using VST(i)-plugins within HexImg</source>
+        <translation>用于在 HexImg 中加载 VST(i) 插件的宿主</translation>
     </message>
     <message>
         <location filename="../../plugins/Vibed/Vibed.cpp" line="55" />
         <source>Vibrating string modeler</source>
-        <translation>振动弦建模器</translation>
+        <translation>振动弦建模合成器</translation>
     </message>
     <message>
         <location filename="../../plugins/VstEffect/VstEffect.cpp" line="48" />
-        <source>plugin for using arbitrary VST effects inside LMMS.</source>
-        <translation>在 LMMS 中使用任意 VST 效果的插件。</translation>
+        <source>plugin for using arbitrary VST effects inside HexImg.</source>
+        <translation>用于在 HexImg 中使用任意 VST 效果器的插件。</translation>
     </message>
     <message>
         <location filename="../../plugins/Watsyn/Watsyn.cpp" line="50" />
         <source>4-oscillator modulatable wavetable synth</source>
-        <translation>有四个振荡器的可调制波表合成器</translation>
+        <translation>可调制的四振荡器波表合成器</translation>
     </message>
     <message>
         <location filename="../../plugins/WaveShaper/WaveShaper.cpp" line="44" />
@@ -1081,7 +1081,7 @@ This chip was used in the Commodore 64 computer.</source>
     <message>
         <location filename="../../plugins/Xpressive/Xpressive.cpp" line="56" />
         <source>Mathematical expression parser</source>
-        <translation>数学表达式解析器</translation>
+        <translation>数学表达式合成器</translation>
     </message>
     <message>
         <location filename="../../plugins/ZynAddSubFx/ZynAddSubFx.cpp" line="66" />
@@ -1101,12 +1101,12 @@ This chip was used in the Commodore 64 computer.</source>
     <message>
         <location filename="../../plugins/LOMM/LOMM.cpp" line="40" />
         <source>Upwards/downwards multiband compression plugin powered by the eldritch elder god LOMMUS.</source>
-        <translation>由远古邪神 LOMMUS 驱动的向上/向下多段压缩插件。</translation>
+        <translation>向上/向下多段压缩效果器。</translation>
     </message>
     <message>
         <location filename="../../plugins/SlewDistortion/SlewDistortion.cpp" line="39" />
         <source>A 2-band distortion and slew rate limiter plugin.</source>
-        <translation>双频段失真与压摆率限制插件。</translation>
+        <translation>双频段失真与压摆率限制效果器。</translation>
     </message>
     <message>
         <location filename="../../plugins/SlicerT/SlicerT.cpp" line="47" />
@@ -1128,8 +1128,8 @@ This chip was used in the Commodore 64 computer.</source>
     </message>
     <message>
         <location filename="../../src/core/PluginFactory.cpp" line="192" />
-        <source>LMMS plugin %1 does not have a plugin descriptor named %2!</source>
-        <translation>LMMS插件 %1 没有一个插件描述符命名为 %2</translation>
+        <source>HexImg plugin %1 does not have a plugin descriptor named %2!</source>
+        <translation>HexImg 插件 %1 没有名为 %2 的插件描述符！</translation>
     </message>
 </context>
 <context>
@@ -1424,8 +1424,8 @@ This chip was used in the Commodore 64 computer.</source>
     </message>
     <message>
         <location filename="../../src/core/audio/AudioJack.cpp" line="153" />
-        <source>LMMS was kicked by JACK for some reason. Therefore the JACK backend of LMMS has been restarted. You will have to make manual connections again.</source>
-        <translation>LMMS 由于某些原因与 JACK 断开连接，这可能是因为 LMMS 的 JACK 后端重启导致的，你需要手动重新连接。</translation>
+        <source>HexImg was kicked by JACK for some reason. Therefore the JACK backend of HexImg has been restarted. You will have to make manual connections again.</source>
+        <translation>HexImg 由于某些原因与 JACK 断开连接，这可能是因为 HexImg 的 JACK 后端重启导致的，你需要手动重新连接。</translation>
     </message>
     <message>
         <location filename="../../src/core/audio/AudioJack.cpp" line="160" />
@@ -1434,8 +1434,8 @@ This chip was used in the Commodore 64 computer.</source>
     </message>
     <message>
         <location filename="../../src/core/audio/AudioJack.cpp" line="161" />
-        <source>The JACK server seems to have been shutdown and starting a new instance failed. Therefore LMMS is unable to proceed. You should save your project and restart JACK and LMMS.</source>
-        <translation>JACK 服务好像崩溃了而且未能正常启动，LMMS 无法正常工作，你需要保存你的工程然后重启 JACK 和LMMS。</translation>
+        <source>The JACK server seems to have been shutdown and starting a new instance failed. Therefore HexImg is unable to proceed. You should save your project and restart JACK and HexImg.</source>
+        <translation>JACK 服务好像崩溃了而且未能正常启动，HexImg 无法正常工作，你需要保存你的工程然后重启 JACK 和 HexImg。</translation>
     </message>
     <message>
         <location filename="../../src/core/audio/AudioJack.cpp" line="520" />
@@ -3749,8 +3749,8 @@ This chip was used in the Commodore 64 computer.</source>
     </message>
     <message>
         <location filename="../../plugins/MidiImport/MidiImport.cpp" line="111" />
-        <source>You did not compile LMMS with support for SoundFont2 player, which is used to add default sound to imported MIDI files. Therefore no sound will be played back after importing this MIDI file.</source>
-        <translation>你在编译 LMMS 时没有加入 SoundFont2 播放器支持, 此播放器默认用于添加导入的 MIDI 文件。因此在 MIDI 文件导入后, 将没有声音。</translation>
+        <source>You did not compile HexImg with support for SoundFont2 player, which is used to add default sound to imported MIDI files. Therefore no sound will be played back after importing this MIDI file.</source>
+        <translation>你在编译 HexImg 时没有加入 SoundFont2 播放器支持, 此播放器默认用于添加导入的 MIDI 文件。因此在 MIDI 文件导入后, 将没有声音。</translation>
     </message>
     <message>
         <location filename="../../plugins/MidiImport/MidiImport.cpp" line="296" />
@@ -4923,8 +4923,8 @@ This chip was used in the Commodore 64 computer.</source>
     </message>
     <message>
         <location filename="../../src/core/PeakController.cpp" line="214" />
-        <source>Due to a bug in older version of LMMS, the peak controllers may not be connect properly. Please ensure that peak controllers are connected properly and re-save this file. Sorry for any inconvenience caused.</source>
-        <translation>在老版本的 LMMS 中, 峰值控制器因为有 bug 而可能没有正确连接。请确保峰值控制器正常连接后再次保存次文件。我们对给你造成的不便深表歉意。</translation>
+        <source>Due to a bug in older version of HexImg, the peak controllers may not be connect properly. Please ensure that peak controllers are connected properly and re-save this file. Sorry for any inconvenience caused.</source>
+        <translation>在老版本的 HexImg 中, 峰值控制器因为有 bug 而可能没有正确连接。请确保峰值控制器正常连接后再次保存次文件。我们对给你造成的不便深表歉意。</translation>
     </message>
 </context>
 <context>
@@ -5645,8 +5645,8 @@ Reason: "%2"</source>
     </message>
     <message>
         <location filename="../../src/core/Song.cpp" line="1214" />
-        <source>LMMS Error report</source>
-        <translation>LMMS 错误报告</translation>
+        <source>HexImg Error report</source>
+        <translation>HexImg 错误报告</translation>
     </message>
     <message>
         <location filename="../../src/core/Song.cpp" line="1511" />
@@ -5730,9 +5730,9 @@ Reason: "%2"</source>
     <message>
         <location filename="../../src/core/ImportFilter.cpp" line="81" />
         <source>Couldn't find a filter for importing file %1.
-You should convert this file into a format supported by LMMS using another software.</source>
+You should convert this file into a format supported by HexImg using another software.</source>
         <translation>无法找到导入文件 %1 的导入器
-你需要使用其他软件将此文件转换成 LMMS 支持的格式。</translation>
+你需要使用其他软件将此文件转换成 HexImg 支持的格式。</translation>
     </message>
     <message>
         <location filename="../../src/core/ImportFilter.cpp" line="100" />
@@ -7351,8 +7351,8 @@ Press &lt;Shift&gt; for destructive splitting.</source>
     </message>
     <message>
         <location filename="../../src/gui/modals/ControllerConnectionDialog.cpp" line="332" />
-        <source>LMMS</source>
-        <translation>LMMS</translation>
+        <source>HexImg</source>
+        <translation>HexImg</translation>
     </message>
     <message>
         <location filename="../../src/gui/modals/ControllerConnectionDialog.cpp" line="332" />
@@ -8815,8 +8815,8 @@ Please make sure you have write permission to the file and the directory contain
     </message>
     <message>
         <location filename="../../src/gui/GuiApplication.cpp" line="98" />
-        <source>The LMMS working directory %1 does not exist. Create it now? You can change the directory later via Edit -&gt; Settings.</source>
-        <translation>LMMS工作目录%1不存在，现在新建一个吗？你可以稍后在 编辑 -&gt; 设置 中更改此设置。</translation>
+        <source>The HexImg working directory %1 does not exist. Create it now? You can change the directory later via Edit -&gt; Settings.</source>
+        <translation>HexImg 工作目录 %1 不存在，现在新建一个吗？你可以稍后在 编辑 -&gt; 设置 中更改此设置。</translation>
     </message>
     <message>
         <location filename="../../src/gui/GuiApplication.cpp" line="156" />
@@ -10469,8 +10469,8 @@ Double click to pick a file.</source>
     </message>
     <message>
         <location filename="../../src/gui/LmmsStyle.cpp" line="153" />
-        <source>LMMS theme file %1 has been reloaded.</source>
-        <translation>LMMS 主题文件 %1 已重新加载。</translation>
+        <source>HexImg theme file %1 has been reloaded.</source>
+        <translation>HexImg 主题文件 %1 已重新加载。</translation>
     </message>
 </context>
 <context>
@@ -10504,8 +10504,8 @@ Please make sure you have write permission to the file and the directory contain
     </message>
     <message>
         <location filename="../../src/core/main.cpp" line="795" />
-        <source>There is a recovery file present. It looks like the last session did not end properly or another instance of LMMS is already running. Do you want to recover the project of this session?</source>
-        <translation>发现了一个恢复文件。看上去上个会话没有正常结束或者其他的 LMMS 进程已经运行。你想要恢复这个项目吗?</translation>
+        <source>There is a recovery file present. It looks like the last session did not end properly or another instance of HexImg is already running. Do you want to recover the project of this session?</source>
+        <translation>发现了一个恢复文件。看上去上个会话没有正常结束或者其他的 HexImg 进程已经运行。你想要恢复这个项目吗?</translation>
     </message>
     <message>
         <location filename="../../src/core/main.cpp" line="800" />
@@ -10515,8 +10515,8 @@ Please make sure you have write permission to the file and the directory contain
     </message>
     <message>
         <location filename="../../src/core/main.cpp" line="801" />
-        <source>Recover the file. Please don't run multiple instances of LMMS when you do this.</source>
-        <translation>恢复文件。请不要在恢复文件时运行多个 LMMS 程序。</translation>
+        <source>Recover the file. Please don't run multiple instances of HexImg when you do this.</source>
+        <translation>恢复文件。请不要在恢复文件时运行多个 HexImg 程序。</translation>
     </message>
     <message>
         <location filename="../../src/core/main.cpp" line="803" />
@@ -10786,8 +10786,8 @@ Please make sure you have write permission to the file and the directory contain
     </message>
     <message>
         <location filename="../../src/gui/MainWindow.cpp" line="593" />
-        <source>LMMS %1</source>
-        <translation>LMMS %1</translation>
+        <source>HexImg %1</source>
+        <translation>HexImg %1</translation>
     </message>
     <message>
         <location filename="../../src/gui/MainWindow.cpp" line="612" />
@@ -10816,8 +10816,8 @@ Please make sure you have write permission to the file and the directory contain
     </message>
     <message>
         <location filename="../../src/gui/MainWindow.cpp" line="755" />
-        <source>LMMS (*.mmp *.mmpz)</source>
-        <translation>LMMS (*.mmp *.mmpz)</translation>
+        <source>HexImg (*.mmp *.mmpz)</source>
+        <translation>HexImg (*.mmp *.mmpz)</translation>
     </message>
     <message>
         <location filename="../../src/gui/MainWindow.cpp" line="798" />
@@ -10826,13 +10826,13 @@ Please make sure you have write permission to the file and the directory contain
     </message>
     <message>
         <location filename="../../src/gui/MainWindow.cpp" line="799" />
-        <source>LMMS Project</source>
-        <translation>LMMS 工程</translation>
+        <source>HexImg Project</source>
+        <translation>HexImg 工程</translation>
     </message>
     <message>
         <location filename="../../src/gui/MainWindow.cpp" line="800" />
-        <source>LMMS Project Template</source>
-        <translation>LMMS 工程模板</translation>
+        <source>HexImg Project Template</source>
+        <translation>HexImg 工程模板</translation>
     </message>
     <message>
         <location filename="../../src/gui/MainWindow.cpp" line="830" />
@@ -10856,10 +10856,10 @@ Please make sure you have write permission to the file and the directory contain
     </message>
     <message>
         <location filename="../../src/gui/MainWindow.cpp" line="913" />
-        <source>Currently there's no help available in LMMS.
-Please visit http://lmms.sf.net/wiki for documentation on LMMS.</source>
-        <translation>LMMS现在没有可用的帮助
-请访问 http://lmms.sf.net/wiki 了解LMMS的相关文档。</translation>
+        <source>Currently there's no help available in HexImg.
+Please visit http://lmms.sf.net/wiki for documentation on HexImg.</source>
+        <translation>HexImg现在没有可用的帮助
+请访问 http://lmms.sf.net/wiki 了解HexImg的相关文档。</translation>
     </message>
     <message>
         <location filename="../../src/gui/MainWindow.cpp" line="1070" />
@@ -13751,8 +13751,8 @@ Warning: This operation can not be undone.</source>
     </message>
     <message>
         <location filename="../../src/gui/modals/SetupDialog.cpp" line="817" />
-        <source>LMMS working directory</source>
-        <translation>LMMS工作目录</translation>
+        <source>HexImg working directory</source>
+        <translation>HexImg 工作目录</translation>
     </message>
     <message>
         <location filename="../../src/gui/modals/SetupDialog.cpp" line="821" />
@@ -13843,8 +13843,8 @@ Latency: %2 ms</source>
     </message>
     <message>
         <location filename="../../src/gui/modals/SetupDialog.cpp" line="1301" />
-        <source>Choose the LMMS working directory</source>
-        <translation>选择 LMMS 工作目录</translation>
+        <source>Choose the HexImg working directory</source>
+        <translation>选择 HexImg 工作目录</translation>
     </message>
     <message>
         <location filename="../../src/gui/modals/SetupDialog.cpp" line="1318" />
@@ -14434,8 +14434,8 @@ Latency: %2 ms</source>
     </message>
     <message>
         <location filename="../../src/core/DataFile.cpp" line="2191" />
-        <source>This %1 was created with LMMS %2</source>
-        <translation>此 %1 由 LMMS %2 创建</translation>
+        <source>This %1 was created with HexImg %2</source>
+        <translation>此 %1 由 HexImg %2 创建</translation>
     </message>
     <message>
         <location filename="../../src/gui/editors/SongEditor.cpp" line="80" />
@@ -15427,8 +15427,8 @@ Latency: %2 ms</source>
     </message>
     <message>
         <location filename="../../plugins/Vestige/Vestige.cpp" line="519" />
-        <source>Control VST plugin from LMMS host</source>
-        <translation>从 LMMS 宿主控制 VST 插件</translation>
+        <source>Control VST plugin from HexImg host</source>
+        <translation>从 HexImg 宿主控制 VST 插件</translation>
     </message>
     <message>
         <location filename="../../plugins/Vestige/Vestige.cpp" line="532" />
@@ -15631,8 +15631,8 @@ Latency: %2 ms</source>
     </message>
     <message>
         <location filename="../../plugins/VstEffect/VstEffectControlDialog.cpp" line="113" />
-        <source>Control VST plugin from LMMS host</source>
-        <translation>从 LMMS 宿主控制 VST 插件</translation>
+        <source>Control VST plugin from HexImg host</source>
+        <translation>从 HexImg 宿主控制 VST 插件</translation>
     </message>
     <message>
         <location filename="../../plugins/VstEffect/VstEffectControlDialog.cpp" line="129" />

@@ -170,8 +170,8 @@ void PluginBrowser::addPlugins()
 		}
 	);
 
-	// Add a root node to the tree for native LMMS plugins
-	const auto lmmsRoot = addRoot("LMMS");
+	// Add a root node to the tree for native HexImg plugins
+	const auto lmmsRoot = addRoot("HexImg");
 	lmmsRoot->setExpanded(true);
 
 	// Add all of the descriptors to the tree

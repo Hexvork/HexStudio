@@ -139,8 +139,8 @@ void AudioJack::restartAfterZombified()
 		m_active = false;
 		startProcessing();
 		QMessageBox::information(gui::getGUI()->mainWindow(), tr("JACK client restarted"),
-			tr(	"LMMS was kicked by JACK for some reason. "
-				"Therefore the JACK backend of LMMS has been "
+			tr(	"HexImg was kicked by JACK for some reason. "
+				"Therefore the JACK backend of HexImg has been "
 				"restarted. You will have to make manual "
 				"connections again."));
 	}
@@ -149,9 +149,9 @@ void AudioJack::restartAfterZombified()
 		QMessageBox::information(gui::getGUI()->mainWindow(), tr("JACK server down"),
 			tr(	"The JACK server seems to have been shutdown "
 				"and starting a new instance failed. "
-				"Therefore LMMS is unable to proceed. "
+				"Therefore HexImg is unable to proceed. "
 				"You should save your project and restart "
-				"JACK and LMMS."));
+				"JACK and HexImg."));
 	}
 }
 
@@ -461,7 +461,7 @@ AudioJack::setupWidget::setupWidget(QWidget* parent)
 	//       the JACK server and an indicator for the JACK server status.
 
 	jack_status_t status;
-	m_client = jack_client_open("LMMS-Setup Dialog", JackNoStartServer, &status);
+	m_client = jack_client_open("HexImg-Setup Dialog", JackNoStartServer, &status);
 	if (!m_client)
 	{
 		// Failure is expected when not using the JACK backend

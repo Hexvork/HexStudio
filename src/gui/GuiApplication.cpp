@@ -91,11 +91,11 @@ GuiApplication::GuiApplication()
 	// Immediately register our SIGINT handler
 	createSocketNotifier();
 
-	// prompt the user to create the LMMS working directory (e.g. ~/Documents/lmms) if it doesn't exist
+	// prompt the user to create the HexImg working directory (e.g. ~/Documents/lmms) if it doesn't exist
 	if ( !ConfigManager::inst()->hasWorkingDir() &&
 		QMessageBox::question( nullptr,
 				tr( "Working directory" ),
-				tr( "The LMMS working directory %1 does not "
+				tr( "The HexImg working directory %1 does not "
 				"exist. Create it now? You can change the directory "
 				"later via Edit -> Settings." ).arg( ConfigManager::inst()->workingDir() ),
 					QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes ) == QMessageBox::Yes)

@@ -1,6 +1,8 @@
 ---
 name: build
 'on': [push, pull_request]
+permissions:
+  contents: write
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -337,7 +339,18 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: mingw64
-          path: build/lmms-*.exe
+          path: |
+            build/lmms-*.exe
+            build/HexImg-*.exe
+            build/heximg-*.exe
+      - name: Upload installers to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build/lmms-*.exe
+            build/HexImg-*.exe
+            build/heximg-*.exe
       - name: Trim ccache and print statistics
         run: |
           ccache --cleanup
@@ -418,7 +431,20 @@ jobs:
           Get-ChildItem -Path build/data/locale -Filter *.qm -ErrorAction SilentlyContinue | Format-Table Name, Length
           if (-not (Test-Path build/data/locale/zh_CN.qm)) {
             Write-Host "zh_CN.qm MISSING - running lrelease explicitly"
-            & "$env:IQTA_TOOLS_PATH\..\..\bin\lrelease.exe" data/locale/zh_CN.ts -qm build/data/locale/zh_CN.qm
+            $lrelease = (Get-Command lrelease.exe -ErrorAction SilentlyContinue).Source
+            if (-not $lrelease -and $env:IQTA_TOOLS_PATH) {
+              $candidate = Resolve-Path "$env:IQTA_TOOLS_PATH\..\..\bin\lrelease.exe" -ErrorAction SilentlyContinue
+              if ($candidate) { $lrelease = $candidate.Path }
+            }
+            if (-not $lrelease -and $env:Qt6_DIR) {
+              $qtRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $env:Qt6_DIR))
+              $candidate = Join-Path $qtRoot "bin\lrelease.exe"
+              if (Test-Path $candidate) { $lrelease = $candidate }
+            }
+            if (-not $lrelease) {
+              throw "Could not locate lrelease.exe"
+            }
+            & $lrelease data/locale/zh_CN.ts -qm build/data/locale/zh_CN.qm
           }
           Write-Host "=== zh_CN.qm size ==="
           (Get-Item build/data/locale/zh_CN.qm).Length
@@ -433,7 +459,18 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: msvc-x64
-          path: build\lmms-*.exe
+          path: |
+            build\lmms-*.exe
+            build\HexImg-*.exe
+            build\heximg-*.exe
+      - name: Upload installers to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build/lmms-*.exe
+            build/HexImg-*.exe
+            build/heximg-*.exe
       - name: Upload translation files (debug)
         uses: actions/upload-artifact@v4
         with:
@@ -503,7 +540,18 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: windows-arm64
-          path: build\lmms-*.exe
+          path: |
+            build\lmms-*.exe
+            build\HexImg-*.exe
+            build\heximg-*.exe
+      - name: Upload installers to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build/lmms-*.exe
+            build/HexImg-*.exe
+            build/heximg-*.exe
       - name: Trim ccache and print statistics
         run: |
           /clang64/bin/ccache.exe --cleanup
