@@ -120,6 +120,13 @@ namespace lmms::PathUtil
 		return QString(input).replace("\\", "/");
 	}
 
+	QString normalizePath(const QString& input)
+	{
+		if (input.isEmpty()) { return input; }
+
+		return QDir::cleanPath(serializePath(input));
+	}
+
 	QString stripPrefix(const QString& input)
 	{
 		if (input.isEmpty()) { return input; }
@@ -177,12 +184,12 @@ namespace lmms::PathUtil
 		if (inputFileInfo.isAbsolute())
 		{
 			if (error) { *error = false; }
-			return path;
+			return normalizePath(path);
 		}
 		//Next, handle old relative paths with no prefix
 		QString upgraded = oldRelativeUpgrade(path);
 		Base base = baseLookup(upgraded);
-		return baseLocation(base, error) + upgraded.remove(0, basePrefix(base).length());
+		return normalizePath(baseLocation(base, error) + upgraded.remove(0, basePrefix(base).length()));
 	}
 
 	QString relativeOrAbsolute(const QString& input, const Base base)
