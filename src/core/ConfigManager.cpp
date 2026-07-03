@@ -728,28 +728,30 @@ void ConfigManager::initDevelopmentWorkingDir()
 		cmakeCache.open(QFile::ReadOnly);
 		QTextStream stream(&cmakeCache);
 
-		// Find the lines containing something like lmms_SOURCE_DIR:static=<dir>
-		// and lmms_BINARY_DIR:static=<dir>
-		int done = 0;
+		QString sourceDir;
+		QString binaryDir = QFileInfo(cmakeCache).absolutePath();
+
+		// Prefer project-independent CMake cache entries, and keep the old
+		// lmms_* entries as a fallback for older generated build trees.
 		while(! stream.atEnd())
 		{
 			QString line = stream.readLine();
 
-			if (line.startsWith("lmms_SOURCE_DIR:")) {
-				QString srcDir = line.section('=', -1).trimmed();
-				QDir::addSearchPath("data", srcDir + "/data/");
-				done++;
+			if (line.startsWith("CMAKE_HOME_DIRECTORY:")) {
+				sourceDir = line.section('=', -1).trimmed();
 			}
-			if (line.startsWith("lmms_BINARY_DIR:")) {
-				m_lmmsRcFile = line.section('=', -1).trimmed() +  QDir::separator() +
-							   ".lmmsrc.xml";
-				done++;
+			else if (sourceDir.isEmpty() && line.startsWith("lmms_SOURCE_DIR:")) {
+				sourceDir = line.section('=', -1).trimmed();
 			}
-			if (done == 2)
-			{
-				break;
+			else if (line.startsWith("lmms_BINARY_DIR:")) {
+				binaryDir = line.section('=', -1).trimmed();
 			}
 		}
+
+		if (!sourceDir.isEmpty()) {
+			QDir::addSearchPath("data", sourceDir + "/data/");
+		}
+		m_lmmsRcFile = binaryDir + QDir::separator() + ".lmmsrc.xml";
 
 		cmakeCache.close();
 	}
