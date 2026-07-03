@@ -18,7 +18,7 @@ jobs:
       - name: Configure git
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - name: Check out
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: recursive
@@ -29,18 +29,26 @@ jobs:
       - name: Install doxygen
         uses: ssciwr/doxygen-install@v2
         with:
-          version: "1.16.1"
+          version: "1.13.2"
       - name: Configure
         run: |
           cmake -S doc -B build $CMAKE_OPTS
       - name: Build docs
         run: cmake --build build --target doc
+      - name: Upload documentation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: doxygen-html
+          path: build/doc/html
       - name: Setup Pages
+        if: github.repository == 'LMMS/lmms'
         uses: actions/configure-pages@v5
       - name: Upload generated website
+        if: github.repository == 'LMMS/lmms'
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'build/doc/html'
       - name: Deploy to GitHub Pages
+        if: github.repository == 'LMMS/lmms'
         id: deployment
         uses: actions/deploy-pages@v5
