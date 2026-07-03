@@ -27,74 +27,77 @@ IF(GIT_FOUND AND NOT FORCE_VERSION)
 	EXECUTE_PROCESS(
 		COMMAND "${GIT_EXECUTABLE}" describe --tags --match v[0-9].[0-9].[0-9]*
 		OUTPUT_VARIABLE GIT_TAG
+		RESULT_VARIABLE GIT_DESCRIBE_RESULT
 		WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
 		TIMEOUT 10
 		OUTPUT_STRIP_TRAILING_WHITESPACE)
-	# Read: TAG_LIST = GIT_TAG.split("-")
-	STRING(REPLACE "-" ";" TAG_LIST "${GIT_TAG}")
-	# Read: TAG_LIST_LENGTH = TAG_LIST.length()
-	LIST(LENGTH TAG_LIST TAG_LIST_LENGTH)
-	# Untagged versions contain at least 2 dashes, giving 3 strings on split.
-	# Hence, for untagged versions TAG_LIST_LENGTH = [dashes in latest tag] + 3.
-	# Corollary: if TAG_LIST_LENGTH <= 2, the version must be tagged.
-	IF(TAG_LIST_LENGTH GREATER 0)
-		# Set FORCE_VERSION to TAG_LIST[0], strip any 'v's to get MAJ.MIN.PAT
-		LIST(GET TAG_LIST 0 FORCE_VERSION)
-		STRING(REPLACE "v" "" FORCE_VERSION "${FORCE_VERSION}")
-		# Split FORCE_VERSION on '.' and populate MAJOR/MINOR/PATCH_VERSION
-		STRING(REPLACE "." ";" MAJ_MIN_PAT "${FORCE_VERSION}")
-		LIST(GET MAJ_MIN_PAT 0 MAJOR_VERSION)
-		LIST(GET MAJ_MIN_PAT 1 MINOR_VERSION)
-		LIST(GET MAJ_MIN_PAT 2 PATCH_VERSION)
-	ENDIF()
-	# 1 dash total: Dash in latest tag, no additional commits => pre-release
-	IF(TAG_LIST_LENGTH EQUAL 2)
-		# Get the pre-release stage
-		LIST(GET TAG_LIST 1 VERSION_STAGE)
-		list(APPEND PRERELEASE_DATA "${VERSION_STAGE}")
-	# 2 dashes: Assume untagged with no dashes in latest tag name => stable + commits
-	ELSEIF(TAG_LIST_LENGTH EQUAL 3)
-		# Get the number of commits and latest commit hash
-		LIST(GET TAG_LIST 1 EXTRA_COMMITS)
-		# Prefer PR hash from above if present
-		if(NOT COMMIT_HASH)
-			list(GET TAG_LIST 2 COMMIT_HASH)
-			# Mimic github's hash style
-			string(SUBSTRING "${COMMIT_HASH}" 1 7 COMMIT_HASH)
-		endif()
-		list(APPEND PRERELEASE_DATA "${EXTRA_COMMITS}")
-		list(APPEND BUILD_METADATA "${COMMIT_HASH}")
-		# Bump the patch version, since a pre-release (as specified by the extra
-		# commits) compares lower than the main version alone
-		MATH(EXPR PATCH_VERSION "${PATCH_VERSION}+1")
-		# Reassemble the main version using the new patch version
-		set(FORCE_VERSION "${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}")
-	# 3 dashes: Assume untagged with 1 dash in latest tag name => pre-release + commits
-	ELSEIF(TAG_LIST_LENGTH EQUAL 4)
-		# Get the pre-release stage, number of commits, and latest commit hash
-		LIST(GET TAG_LIST 1 VERSION_STAGE)
-		LIST(GET TAG_LIST 2 EXTRA_COMMITS)
-		# Prefer PR hash from above if present
-        if(NOT COMMIT_HASH)
-			list(GET TAG_LIST 3 COMMIT_HASH)
-			# Mimic github's hash style
-			string(SUBSTRING "${COMMIT_HASH}" 1 7 COMMIT_HASH)
-		endif()
-		list(APPEND PRERELEASE_DATA "${VERSION_STAGE}")
-		list(APPEND PRERELEASE_DATA "${EXTRA_COMMITS}")
-		list(APPEND BUILD_METADATA "${COMMIT_HASH}")
-	ENDIF()
+	IF(GIT_DESCRIBE_RESULT EQUAL 0 AND GIT_TAG)
+		# Read: TAG_LIST = GIT_TAG.split("-")
+		STRING(REPLACE "-" ";" TAG_LIST "${GIT_TAG}")
+		# Read: TAG_LIST_LENGTH = TAG_LIST.length()
+		LIST(LENGTH TAG_LIST TAG_LIST_LENGTH)
+		# Untagged versions contain at least 2 dashes, giving 3 strings on split.
+		# Hence, for untagged versions TAG_LIST_LENGTH = [dashes in latest tag] + 3.
+		# Corollary: if TAG_LIST_LENGTH <= 2, the version must be tagged.
+		IF(TAG_LIST_LENGTH GREATER 0)
+			# Set FORCE_VERSION to TAG_LIST[0], strip any 'v's to get MAJ.MIN.PAT
+			LIST(GET TAG_LIST 0 FORCE_VERSION)
+			STRING(REPLACE "v" "" FORCE_VERSION "${FORCE_VERSION}")
+			# Split FORCE_VERSION on '.' and populate MAJOR/MINOR/PATCH_VERSION
+			STRING(REPLACE "." ";" MAJ_MIN_PAT "${FORCE_VERSION}")
+			LIST(GET MAJ_MIN_PAT 0 MAJOR_VERSION)
+			LIST(GET MAJ_MIN_PAT 1 MINOR_VERSION)
+			LIST(GET MAJ_MIN_PAT 2 PATCH_VERSION)
+		ENDIF()
+		# 1 dash total: Dash in latest tag, no additional commits => pre-release
+		IF(TAG_LIST_LENGTH EQUAL 2)
+			# Get the pre-release stage
+			LIST(GET TAG_LIST 1 VERSION_STAGE)
+			list(APPEND PRERELEASE_DATA "${VERSION_STAGE}")
+		# 2 dashes: Assume untagged with no dashes in latest tag name => stable + commits
+		ELSEIF(TAG_LIST_LENGTH EQUAL 3)
+			# Get the number of commits and latest commit hash
+			LIST(GET TAG_LIST 1 EXTRA_COMMITS)
+			# Prefer PR hash from above if present
+			if(NOT COMMIT_HASH)
+				list(GET TAG_LIST 2 COMMIT_HASH)
+				# Mimic github's hash style
+				string(SUBSTRING "${COMMIT_HASH}" 1 7 COMMIT_HASH)
+			endif()
+			list(APPEND PRERELEASE_DATA "${EXTRA_COMMITS}")
+			list(APPEND BUILD_METADATA "${COMMIT_HASH}")
+			# Bump the patch version, since a pre-release (as specified by the extra
+			# commits) compares lower than the main version alone
+			MATH(EXPR PATCH_VERSION "${PATCH_VERSION}+1")
+			# Reassemble the main version using the new patch version
+			set(FORCE_VERSION "${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}")
+		# 3 dashes: Assume untagged with 1 dash in latest tag name => pre-release + commits
+		ELSEIF(TAG_LIST_LENGTH EQUAL 4)
+			# Get the pre-release stage, number of commits, and latest commit hash
+			LIST(GET TAG_LIST 1 VERSION_STAGE)
+			LIST(GET TAG_LIST 2 EXTRA_COMMITS)
+			# Prefer PR hash from above if present
+			if(NOT COMMIT_HASH)
+				list(GET TAG_LIST 3 COMMIT_HASH)
+				# Mimic github's hash style
+				string(SUBSTRING "${COMMIT_HASH}" 1 7 COMMIT_HASH)
+			endif()
+			list(APPEND PRERELEASE_DATA "${VERSION_STAGE}")
+			list(APPEND PRERELEASE_DATA "${EXTRA_COMMITS}")
+			list(APPEND BUILD_METADATA "${COMMIT_HASH}")
+		ENDIF()
 
-	# If there is any pre-release data, append it after a hyphen
-	if(PRERELEASE_DATA)
-		string(REPLACE ";" "." PRERELEASE_DATA "${PRERELEASE_DATA}")
-		set(FORCE_VERSION "${FORCE_VERSION}-${PRERELEASE_DATA}")
-	endif()
+		# If there is any pre-release data, append it after a hyphen
+		if(PRERELEASE_DATA)
+			string(REPLACE ";" "." PRERELEASE_DATA "${PRERELEASE_DATA}")
+			set(FORCE_VERSION "${FORCE_VERSION}-${PRERELEASE_DATA}")
+		endif()
 
-	# If there is any build metadata, append it after a plus
-	if(BUILD_METADATA)
-		string(REPLACE ";" "." BUILD_METADATA "${BUILD_METADATA}")
-		set(FORCE_VERSION "${FORCE_VERSION}+${BUILD_METADATA}")
+		# If there is any build metadata, append it after a plus
+		if(BUILD_METADATA)
+			string(REPLACE ";" "." BUILD_METADATA "${BUILD_METADATA}")
+			set(FORCE_VERSION "${FORCE_VERSION}+${BUILD_METADATA}")
+		endif()
 	endif()
 ENDIF()
 
